@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/eval-hub/static/css/main.ad9ba8a5.css",
+    "main.js": "/eval-hub/static/js/main.59cb433d.js",
+    "static/js/787.42b5330d.chunk.js": "/eval-hub/static/js/787.42b5330d.chunk.js",
+    "static/media/evalbot-2.PNG": "/eval-hub/static/media/evalbot-2.f4c21e07510f2718214a.PNG",
+    "static/media/robot-5.jpg": "/eval-hub/static/media/robot-5.206cf5431caeb945e60c.jpg",
+    "static/media/robot-4.jpg": "/eval-hub/static/media/robot-4.8638efd04c4c57137609.jpg",
+    "static/media/logo-3.PNG.jpg": "/eval-hub/static/media/logo-3.PNG.6cae254b477735734aa1.jpg",
+    "static/media/twitter-logo.svg": "/eval-hub/static/media/twitter-logo.14ffb1dfca0d60a86936b1f629ba8967.svg",
+    "static/media/instagram-logo.svg": "/eval-hub/static/media/instagram-logo.1ec87dbfe0fb6635bf39b8182258c9f9.svg",
+    "static/media/left-quote-svgrepo-com.svg": "/eval-hub/static/media/left-quote-svgrepo-com.7b60d27794cd3e1bc356fea98ecd83a2.svg",
+    "static/media/facebook-logo.svg": "/eval-hub/static/media/facebook-logo.9b0922231b26781d0016a6c48d86472a.svg",
+    "index.html": "/eval-hub/index.html",
+    "static/media/youtube-logo.svg": "/eval-hub/static/media/youtube-logo.92578807744efa0631af0f5f53c428b3.svg",
+    "static/media/hamburger-icon.svg": "/eval-hub/static/media/hamburger-icon.70de06f19df37966c684c08a5a907ad9.svg",
+    "main.ad9ba8a5.css.map": "/eval-hub/static/css/main.ad9ba8a5.css.map",
+    "main.59cb433d.js.map": "/eval-hub/static/js/main.59cb433d.js.map",
+    "787.42b5330d.chunk.js.map": "/eval-hub/static/js/787.42b5330d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ad9ba8a5.css",
+    "static/js/main.59cb433d.js"
+  ]
+}
