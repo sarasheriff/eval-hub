@@ -1,8 +1,9 @@
 {
   "files": {
-    "main.css": "/eval-hub/static/css/main.ad9ba8a5.css",
-    "main.js": "/eval-hub/static/js/main.59cb433d.js",
+    "main.css": "/eval-hub/static/css/main.ed414630.css",
+    "main.js": "/eval-hub/static/js/main.86e09e7d.js",
     "static/js/787.42b5330d.chunk.js": "/eval-hub/static/js/787.42b5330d.chunk.js",
+    "static/media/4952209_39546.jpg": "/eval-hub/static/media/4952209_39546.1fc0b8d8c9286d87ab64.jpg",
     "static/media/evalbot-2.PNG": "/eval-hub/static/media/evalbot-2.f4c21e07510f2718214a.PNG",
     "static/media/robot-5.jpg": "/eval-hub/static/media/robot-5.206cf5431caeb945e60c.jpg",
     "static/media/robot-4.jpg": "/eval-hub/static/media/robot-4.8638efd04c4c57137609.jpg",
@@ -14,12 +15,12 @@
     "index.html": "/eval-hub/index.html",
     "static/media/youtube-logo.svg": "/eval-hub/static/media/youtube-logo.92578807744efa0631af0f5f53c428b3.svg",
     "static/media/hamburger-icon.svg": "/eval-hub/static/media/hamburger-icon.70de06f19df37966c684c08a5a907ad9.svg",
-    "main.ad9ba8a5.css.map": "/eval-hub/static/css/main.ad9ba8a5.css.map",
-    "main.59cb433d.js.map": "/eval-hub/static/js/main.59cb433d.js.map",
+    "main.ed414630.css.map": "/eval-hub/static/css/main.ed414630.css.map",
+    "main.86e09e7d.js.map": "/eval-hub/static/js/main.86e09e7d.js.map",
     "787.42b5330d.chunk.js.map": "/eval-hub/static/js/787.42b5330d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ad9ba8a5.css",
-    "static/js/main.59cb433d.js"
+    "static/css/main.ed414630.css",
+    "static/js/main.86e09e7d.js"
   ]
 }
