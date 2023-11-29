@@ -1,5 +1,6 @@
 import React from "react";
 import { Avatar, Card, Col, Row, Tag } from "antd";
+import { TeamOutlined, UserOutlined } from "@ant-design/icons";
 import "./hierarcy.css";
 
 const HierarchyTeam = () => {
@@ -109,6 +110,16 @@ const HierarchyTeam = () => {
     ],
   };
 
+  const levels = {
+    "Level-1": "#C41D7F",
+    "Level-2": "#CF1322",
+    "Level-3": "#D48806",
+    "Level-4": "#f50",
+    "Level-5": "#0958D9",
+    "Level-6": "#7244BA",
+    "Level-7": "#87d068",
+  }
+
   const teamHierarchyRecurse = (teamHierarchy) => {
     console.log(teamHierarchy, "team");
     if (!!teamHierarchy.employees?.length) {
@@ -121,12 +132,15 @@ const HierarchyTeam = () => {
                 <a className="hierarchy-children">
                   {(user?.id && user?.level) || user?.name ? (
                     <Card
+                      size="small"
                       className={`parent ${
                         !!user.employees?.length ? "point-bottom" : ""
-                      } point-top hierarchy-card`}
-                      style={{ width: 326, height: 140 }}
+                      } point-top hierarchy-card ${
+                        user?.level && user?.name ? "emp-bg" : "team-bg"
+                      }`}
+                      style={{ minWidth: 200, height: 160 }}
                     >
-                      <Row style={{ height: "100%" }}>
+                      <Row style={{ height: "100%", display: "flex" }}>
                         <Col
                           xs={{ span: 24 }}
                           sm={{ span: 24 }}
@@ -134,15 +148,17 @@ const HierarchyTeam = () => {
                           lg={{ span: 24 }}
                           xl={{ span: 24 }}
                           xxl={{ span: 24 }}
-                          style={{ display: "flex" }}
+                          // style={{ display: "flex" }}
+                          style={{ textAlign: "center", margin: "auto" }}
                         >
                           <Col
-                            xs={{ span: 24 }}
-                            sm={{ span: 24 }}
-                            md={{ span: 5 }}
-                            lg={{ span: 5 }}
-                            xl={{ span: 5 }}
-                            xxl={{ span: 5 }}
+                            span={24}
+                            // xs={{ span: 24 }}
+                            // sm={{ span: 24 }}
+                            // md={{ span: 5 }}
+                            // lg={{ span: 5 }}
+                            // xl={{ span: 5 }}
+                            // xxl={{ span: 5 }}
                           >
                             {user?.userProfilePicture ? (
                               <Avatar
@@ -153,65 +169,29 @@ const HierarchyTeam = () => {
                             ) : (
                               <Avatar className="avatar-image" size={40}>
                                 <h1 className="avatar-letter">
-                                  {user.name?.charAt(0).toLocaleUpperCase()}
+                                  {user.name && user.level ? (
+                                    <UserOutlined
+                                      style={{ fontSize: "20px" }}
+                                    />
+                                  ) : (
+                                    <TeamOutlined
+                                      style={{ fontSize: "20px" }}
+                                    />
+                                  )}
                                 </h1>
                               </Avatar>
                             )}
                           </Col>
-                          <Col
-                            xs={{ span: 24 }}
-                            sm={{ span: 24 }}
-                            md={{ span: 12 }}
-                            lg={{ span: 12 }}
-                            xl={{ span: 12 }}
-                            xxl={{ span: 12 }}
-                          >
+                          <Col span={24}>
                             <h3>{user.name}</h3>
-                            <span className="position">
-                              {user.job_title}
-                              {/* <Divider style={{ borderLeftColor: '#799CA1' }} type="vertical" /> */}
-                            </span>
-                          </Col>
-                        </Col>
-                        <Col
-                          xs={{ span: 24 }}
-                          sm={{ span: 24 }}
-                          md={{ span: 24 }}
-                          lg={{ span: 24 }}
-                          xl={{ span: 24 }}
-                          xxl={{ span: 24 }}
-                          style={{ display: "flex" }}
-                        >
-                          {/* <Col
-                            xs={{ span: 24 }}
-                            sm={{ span: 24 }}
-                            md={{ span: 12 }}
-                            lg={{ span: 12 }}
-                            xl={{ span: 12 }}
-                            xxl={{ span: 12 }}
-                            className="email-conatiner"
-                          >
-                            <span className="email">{user.level}</span>
-                          </Col> */}
-                          <Col
-                            xs={{ span: 24 }}
-                            sm={{ span: 24 }}
-                            md={{ span: 12 }}
-                            lg={{ span: 12 }}
-                            xl={{ span: 12 }}
-                            xxl={{ span: 12 }}
-                            className="phone-conatiner"
-                          >
-                            <span className="email">
-                              {/* {'+' + user.userPhoneNumber.replace(/ /g, '')} */}
-                            </span>
+                            <span className="position">{user.job_title}</span>
                           </Col>
                         </Col>
                       </Row>
                     </Card>
                   ) : (
                     <>
-                      <Tag bordered={false} color="processing">
+                      <Tag bordered={false} color={levels[user?.level]}>
                         {user?.level}
                       </Tag>
                     </>
@@ -227,112 +207,7 @@ const HierarchyTeam = () => {
       return;
     }
   };
-  // const teamHierarchyRecurse = (teamHierarchy) => {
-  //   if (!!teamHierarchy.users.length) {
-  //     return (
-  //       <ul>
-  //         {teamHierarchy.users.map((user) => (
-  //           <li key={user.userId}>
-  //             <a className="hierarchy-children">
-  //               <Card
-  //                 className={`parent ${
-  //                   !!user.users.length ? 'point-bottom' : ''
-  //                 } point-top hierarchy-card`}
-  //                 style={{ width: 326, height: 140 }}
-  //               >
-  //                 <Row style={{ height: '100%' }}>
-  //                   <Col
-  //                     xs={{ span: 24 }}
-  //                     sm={{ span: 24 }}
-  //                     md={{ span: 24 }}
-  //                     lg={{ span: 24 }}
-  //                     xl={{ span: 24 }}
-  //                     xxl={{ span: 24 }}
-  //                     style={{ display: 'flex' }}
-  //                   >
-  //                     <Col
-  //                       xs={{ span: 24 }}
-  //                       sm={{ span: 24 }}
-  //                       md={{ span: 5 }}
-  //                       lg={{ span: 5 }}
-  //                       xl={{ span: 5 }}
-  //                       xxl={{ span: 5 }}
-  //                     >
-  //                       {user?.userProfilePicture ? (
-  //                         <Avatar
-  //                           className="avatar-image bg-light-gray"
-  //                           size={40}
-  //                           src={user.userProfilePicture}
-  //                         />
-  //                       ) : (
-  //                         <Avatar className="avatar-image" size={40}>
-  //                           <h1 className="avatar-letter">
-  //                             {user.userName?.charAt(0).toLocaleUpperCase()}
-  //                           </h1>
-  //                         </Avatar>
-  //                       )}
-  //                     </Col>
-  //                     <Col
-  //                       xs={{ span: 24 }}
-  //                       sm={{ span: 24 }}
-  //                       md={{ span: 12 }}
-  //                       lg={{ span: 12 }}
-  //                       xl={{ span: 12 }}
-  //                       xxl={{ span: 12 }}
-  //                     >
-  //                       <h3>{user.userName}</h3>
-  //                       <span className="position">
-  //                         {user.userRoleName}
-  //                         {/* <Divider style={{ borderLeftColor: '#799CA1' }} type="vertical" /> */}
-  //                       </span>
-  //                     </Col>
-  //                   </Col>
-  //                   <Col
-  //                     xs={{ span: 24 }}
-  //                     sm={{ span: 24 }}
-  //                     md={{ span: 24 }}
-  //                     lg={{ span: 24 }}
-  //                     xl={{ span: 24 }}
-  //                     xxl={{ span: 24 }}
-  //                     style={{ display: 'flex' }}
-  //                   >
-  //                     <Col
-  //                       xs={{ span: 24 }}
-  //                       sm={{ span: 24 }}
-  //                       md={{ span: 12 }}
-  //                       lg={{ span: 12 }}
-  //                       xl={{ span: 12 }}
-  //                       xxl={{ span: 12 }}
-  //                       className="email-conatiner"
-  //                     >
-  //                       <span className="email">{user.userEmailAddress}</span>
-  //                     </Col>
-  //                     <Col
-  //                       xs={{ span: 24 }}
-  //                       sm={{ span: 24 }}
-  //                       md={{ span: 12 }}
-  //                       lg={{ span: 12 }}
-  //                       xl={{ span: 12 }}
-  //                       xxl={{ span: 12 }}
-  //                       className="phone-conatiner"
-  //                     >
-  //                       <span className="email">
-  //                         {'+' + user.userPhoneNumber.replace(/ /g, '')}
-  //                       </span>
-  //                     </Col>
-  //                   </Col>
-  //                 </Row>
-  //               </Card>
-  //             </a>
-  //             {teamHierarchyRecurse(user)}
-  //           </li>
-  //         ))}
-  //       </ul>
-  //     );
-  //   } else {
-  //     return;
-  //   }
-  // };
+
   const renderContent = () => {
     // if (teamHierarchy?.userId)
     return (
@@ -343,10 +218,11 @@ const HierarchyTeam = () => {
               {/* parent */}
               <a className="hierarchy-parent">
                 <Card
-                  className={`parent hierarchy-card ${
+                  size="small"
+                  className={`parent ${
                     !!test2.employees?.length ? "point-bottom" : ""
                   }`}
-                  style={{ width: 326, height: 140 }}
+                  style={{ width: 326, height: 106, background: "none" }}
                 >
                   <Row style={{ height: "100%" }}>
                     <Col
@@ -356,9 +232,14 @@ const HierarchyTeam = () => {
                       lg={{ span: 24 }}
                       xl={{ span: 24 }}
                       xxl={{ span: 24 }}
-                      style={{ display: "flex" }}
+                      style={{ display: "flex", justifyContent: "center" }}
                     >
-                      <Col
+                      <Avatar
+                        className="avatar-image bg-light-gray"
+                        size={90}
+                        src={test2.userProfilePicture}
+                      />
+                      {/* <Col
                         xs={{ span: 24 }}
                         sm={{ span: 24 }}
                         md={{ span: 5 }}
@@ -379,8 +260,8 @@ const HierarchyTeam = () => {
                             </h1>
                           </Avatar>
                         )}
-                      </Col>
-                      <Col
+                      </Col> */}
+                      {/* <Col
                         xs={{ span: 24 }}
                         sm={{ span: 24 }}
                         md={{ span: 12 }}
@@ -390,45 +271,11 @@ const HierarchyTeam = () => {
                       >
                         <h3>{test2.team}</h3>
                         <span className="position">
-                          {/* {test2.userRoleName} --- */}
-                          ----
-                          {/* <Divider style={{ borderLeftColor: '#799CA1' }} type="vertical" /> */}
+                      
+                          ---- tri
+                       
                         </span>
-                      </Col>
-                    </Col>
-                    <Col
-                      xs={{ span: 24 }}
-                      sm={{ span: 24 }}
-                      md={{ span: 24 }}
-                      lg={{ span: 24 }}
-                      xl={{ span: 24 }}
-                      xxl={{ span: 24 }}
-                      style={{ display: "flex" }}
-                    >
-                      <Col
-                        xs={{ span: 24 }}
-                        sm={{ span: 24 }}
-                        md={{ span: 12 }}
-                        lg={{ span: 12 }}
-                        xl={{ span: 12 }}
-                        xxl={{ span: 12 }}
-                        className="email-conatiner"
-                      >
-                        {/* <span className="email">{teamHierarchy.userEmailAddress}</span> */}
-                      </Col>
-                      <Col
-                        xs={{ span: 24 }}
-                        sm={{ span: 24 }}
-                        md={{ span: 12 }}
-                        lg={{ span: 12 }}
-                        xl={{ span: 12 }}
-                        xxl={{ span: 12 }}
-                        className="phone-conatiner"
-                      >
-                        <span className="email">
-                          {/* {'+' + teamHierarchy.userPhoneNumber?.replace(/ /g, '')} */}
-                        </span>
-                      </Col>
+                      </Col> */}
                     </Col>
                   </Row>
                 </Card>

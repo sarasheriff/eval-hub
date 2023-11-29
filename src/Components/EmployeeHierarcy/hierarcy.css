@@ -2,6 +2,8 @@
   /* display: flex; */
   align-items: center;
   justify-content: center;
+  width: 100%;
+  overflow-x: auto;
 }
 
 .tree h3 {
@@ -84,6 +86,7 @@ margin: 0;
 .tree li a:hover .hierarchy-card,
 .tree li a:hover + ul li a .hierarchy-card {
   background: #f5f5f5;
+  color: #000;
 }
 
 .tree li .hierarchy-card:hover,
@@ -225,4 +228,14 @@ margin: 0;
   border-radius: 10px;
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: white;
+}
+
+.team-bg {
+background: linear-gradient(336deg, rgba(41,67,116,1) 0%, rgba(41,67,116,1) 35%, rgba(120,136,165,1) 100%);
+color: #e4ebec;
+
+}
+.emp-bg {
+  background: linear-gradient( to top, white 0%, white 66%, #7888a5 50%, #7888a5 100% );
+
 }

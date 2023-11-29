@@ -48,3 +48,14 @@
 /* main .proj-layout {
   margin: 0 !important;
 } */
+
+body, :where(.css-dev-only-do-not-override-1adbn6x)[class^="ant-layout"], :where(.css-dev-only-do-not-override-1adbn6x)[class*=" ant-layout"] {
+  margin: 0;
+  font-family: 'Poppins', sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: 'Poppins' !important
+}

@@ -292,7 +292,6 @@ const items = [
             </p>
           </Card>
         </Col>
-
       </Row>
     ),
   },
@@ -300,67 +299,42 @@ const items = [
 
 const Feedback = () => (
   <>
-    {/* <Space
-      direction="vertical"
-      style={{
-        width: "100%",
-        height:"100%"
-      }}
-      size={[0, 424]}
-    > */}
-    <Layout className="proj-layout">
-      <Header
-        style={{
-          background: "white",
-          boxShadow: "0 -6px 10px 5px rgba(0,0,0,0.5)",
-          position: "sticky",
-          zIndex: 999,
-          top: "-10px",
-        }}
+    <Col span={12}>
+      <Breadcrumb
+        items={[
+          {
+            href: "",
+            title: <HomeOutlined />,
+          },
+          {
+            href: "",
+            title: (
+              <>
+                <UserOutlined />
+                <span>My Profile</span>
+              </>
+            ),
+          },
+          {
+            title: "Feedback",
+          },
+        ]}
+      />
+    </Col>
+    <Col
+      span={12}
+      style={{ display: "flex", justifyContent: "end", alignItems: "center" }}
+    >
+      <Button
+        type="primary"
+        style={{ backgroundColor: "#38507F", height: "38px" }}
       >
-        <img src={logo} width="155px" />
-      </Header>
-      <Content
-        style={{
-          padding: "0 50px",
-        }}
-      >
-        <Row>
-          <Col span={12}>
-            <Breadcrumb
-              items={[
-                {
-                  href: "",
-                  title: <HomeOutlined />,
-                },
-                {
-                  href: "",
-                  title: (
-                    <>
-                      <UserOutlined />
-                      <span>My Profile</span>
-                    </>
-                  ),
-                },
-                {
-                  title: "Feedback",
-                },
-              ]}
-            />
-          </Col>
-          <Col span={12} style={{display:"flex", justifyContent:"end", alignItems: "center"}}>
-            <Button 
-            type="primary"
-            style={{ backgroundColor: "#38507F",height: "38px" }}>Validate using AI</Button>
-          </Col>
-          <Col span={24}>
-            <Tabs onChange={onChange} type="card" items={items} />
-          </Col>
-        </Row>
-      </Content>
-      {/* <Footer>Footer</Footer> */}
-    </Layout>
-    {/* </Space> */}
+        Validate using AI
+      </Button>
+    </Col>
+    <Col span={24}>
+      <Tabs onChange={onChange} type="card" items={items} />
+    </Col>
   </>
 );
 export default Feedback;
