@@ -12,7 +12,7 @@ import logo from "../../images/logo-3.PNG.jpg";
 const LandingPage = () => {
   return (
     <div className="main-body">
-      <header>
+      <header style={{position:"relative", zIndex:"999"}}>
         <nav class="container">
           {/* <p class="logo">Eval8Hub</p> */}
           <img src={logo} width={"250px"} />

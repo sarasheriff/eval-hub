@@ -10,14 +10,20 @@ import PageLayout from "./Components/Layout";
 function App() {
   return (
     <div className="wrapper">
-      <PageLayout>
+      {window.location.pathname === "/eval-hub" || window.location.pathname === "/eval-hub/" ||
+      window.location.pathname === "/eval-hub/sign-in" ? (
         <Routes>
           <Route path="/eval-hub" element={<LandingPage />} />
           <Route path="/eval-hub/sign-in" element={<Login />} />
-          <Route path="/eval-hub/emp" element={<HierarchyTeam />} />
-          <Route path="/eval-hub/feedback-employees" element={<Feedback />} />
         </Routes>
-      </PageLayout>
+      ) : (
+        <PageLayout>
+          <Routes>
+            <Route path="/eval-hub/emp" element={<HierarchyTeam />} />
+            <Route path="/eval-hub/feedback-employees" element={<Feedback />} />
+          </Routes>
+        </PageLayout>
+      )}
     </div>
   );
 }
