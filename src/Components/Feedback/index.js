@@ -15,7 +15,7 @@ import {
 } from "antd";
 import logo from "../../images/logo-3.PNG.jpg";
 import quote from "../../images/left-quote-svgrepo-com.svg";
-import { postFeedback, getEvaluation } from '../../api';
+import { postFeedback, getEvaluation, getFeedbacks } from '../../api';
 const { Header, Content } = Layout;
 const { TextArea } = Input;
 
@@ -102,6 +102,7 @@ const transformResponseData = (responseData) => {
 const Feedback = () => {
   const [data, setData] = useState([]);
   const [inputValue, setInputValue] = useState('');
+  const [feedbacks, setFeedbacks] = useState([]);
 
   const onChange = (event) => {
     if (event && event.target) {
@@ -133,8 +134,18 @@ const Feedback = () => {
     }
   };
 
+  const getFeedbacksFromApi = async () => {
+    try {
+      const responseData = await getFeedbacks();
+      setFeedbacks(responseData.feedbacks);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
   useEffect(() => {
     fetchDataFromApi();
+    getFeedbacksFromApi();
   }, []); // Run only once on component mount
 
   const items = [
@@ -180,82 +191,14 @@ const Feedback = () => {
       label: "Your Reviews",
       children: (
         <Row gutter={16} className="quote-reviews">
-          <Col span={24} style={{ marginBottom: 16 }}>
+          {feedbacks.map((feedback, index) => (
+          <Col key={index} span={24} style={{ marginBottom: 16 }}>
             <Card bordered={false}>
               <img src={quote} width={35} />
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-                finibus, urna non cursus dictum, odio enim volutpat ligula, vitae
-                tempus elit lorem a nulla. Maecenas ut cursus mauris. Mauris vitae
-                sodales dolor. Donec risus justo, vulputate pellentesque congue
-                quis, pretium vel eros. Pellentesque varius maximus orci quis
-                tempus. Donec sodales nibh eu odio bibendum eleifend. Pellentesque
-                dapibus hendrerit urna, ac mollis erat posuere eget. Pellentesque
-                habitant morbi tristique senectus et netus et malesuada fames ac
-                turpis egestas. Phasellus eleifend justo purus, quis luctus ipsum
-                finibus ac. Integer at vulputate felis. In sed placerat dolor.
-                Fusce porta a nisl in tincidunt. Aenean sit amet aliquam enim.
-              </p>
+              <p>{feedback}</p>
             </Card>
           </Col>
-          <Col span={24} style={{ marginBottom: 16 }}>
-            <Card bordered={false}>
-              <img src={quote} width={35} />
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-                finibus, urna non cursus dictum, odio enim volutpat ligula, vitae
-                tempus elit lorem a nulla. Maecenas ut cursus mauris. Mauris vitae
-                sodales dolor. Donec risus justo, vulputate pellentesque congue
-                quis, pretium vel eros. Pellentesque varius maximus orci quis
-                tempus. Donec sodales nibh eu odio bibendum eleifend. Pellentesque
-                dapibus hendrerit urna, ac mollis erat posuere eget. Pellentesque
-                habitant morbi tristique senectus et netus et malesuada fames ac
-                turpis egestas. Phasellus eleifend justo purus, quis luctus ipsum
-                finibus ac. Integer at vulputate felis. In sed placerat dolor.
-                Fusce porta a nisl in tincidunt. Aenean sit amet aliquam enim.
-              </p>
-            </Card>
-          </Col>
-          <Col span={24} style={{ marginBottom: 16 }}>
-            <Card bordered={false}>
-              <img src={quote} width={35} />
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-                finibus, urna non cursus dictum, odio enim volutpat ligula, vitae
-                tempus elit lorem a nulla. Maecenas ut cursus mauris. Mauris vitae
-                sodales dolor. Donec risus justo, vulputate pellentesque congue
-                quis, pretium vel eros. Pellentesque varius maximus orci quis
-                tempus. Donec sodales nibh eu odio bibendum eleifend. Pellentesque
-                dapibus hendrerit urna, ac mollis erat posuere eget. Pellentesque
-                habitant morbi tristique senectus et netus et malesuada fames ac
-                turpis egestas. Phasellus eleifend justo purus, quis luctus ipsum
-                finibus ac. Integer at vulputate felis.
-              </p>
-            </Card>
-          </Col>
-          <Col span={24} style={{ marginBottom: 16 }}>
-            <Card bordered={false}>
-              <img src={quote} width={35} />
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-                finibus, urna non cursus dictum, odio enim volutpat ligula, vitae
-                tempus elit lorem a nulla. Maecenas ut cursus mauris.
-              </p>
-            </Card>
-          </Col>
-          <Col span={24} style={{ marginBottom: 16 }}>
-            <Card bordered={false}>
-              <img src={quote} width={35} />
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-                finibus, urna non cursus dictum, odio enim volutpat ligula, vitae
-                tempus elit lorem a nulla. Maecenas ut cursus mauris. Mauris vitae
-                sodales dolor. Donec risus justo, vulputate pellentesque congue
-                quis, pretium vel eros. Pellentesque varius maximus orci quis
-                tempus. Donec sodales nibh eu odio bibendum eleifend.
-              </p>
-            </Card>
-          </Col>
+        ))}
         </Row>
       ),
     },
