@@ -1,5 +1,5 @@
 import { HomeOutlined, UserOutlined } from "@ant-design/icons";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Breadcrumb,
   Col,
@@ -15,7 +15,7 @@ import {
 } from "antd";
 import logo from "../../images/logo-3.PNG.jpg";
 import quote from "../../images/left-quote-svgrepo-com.svg";
-import { postFeedback } from '../../api';
+import { postFeedback, getEvaluation } from '../../api';
 const { Header, Content } = Layout;
 const { TextArea } = Input;
 
@@ -45,135 +45,62 @@ const columns = [
     key: "rate",
   },
 ];
-const data = [
-  {
-    key: "1",
-    kpi: "Advanced Productivity",
+
+const transformResponseData = (responseData) => {
+  const groupedData = responseData.evaluations.reduce((result, evaluation) => {
+    const { kpi, question, is_sufficient, score } = evaluation;
+
+    // Find the existing KPI group or create a new one
+    const existingGroup = result.find(group => group.kpi === kpi);
+    if (existingGroup) {
+      // Add the question to the existing group
+      existingGroup.questions.push({ question, is_sufficient, score });
+    } else {
+      // Create a new group for the KPI
+      result.push({ kpi, questions: [{ question, is_sufficient, score }] });
+    }
+
+    return result;
+  }, []);
+
+  // Transform grouped data into the desired format
+  const data = groupedData.map((group, index) => ({
+    key: (index + 1).toString(),
+    kpi: group.kpi,
     quetions: (
       <ul>
-        <li>Leading in project planning and getting things done.</li>
-        <li>
-          Helping improve the way the team works to increase productivity.
-        </li>
-        <li>
-          Solving complex problems and helping choose the right solutions.
-        </li>
-        <li>Finding and using better tools and techniques for the team.</li>
-        <li>Always delivering high-quality work.</li>
+        {group.questions.map((question, questionIndex) => (
+          <li key={questionIndex.toString()}>
+            {question.question}
+          </li>
+        ))}
       </ul>
     ),
-    covered: <Checkbox checked={true}></Checkbox>,
-    point: 10,
-  },
-  {
-    key: "2",
-    kpi: "Dependability",
-    quetions: (
-      <ul>
-        <li>
-          Ability to smoothly adapt to technical and administrative changes.
-        </li>
-        <li>Ability to provide reliable estimates for tasks.</li>
-        <li>
-          Efficiently following/ setting best practices beyond defined
-          guidelines and yet within practical limits.
-        </li>
-        <li>
-          Ability to perform effectively and efficiently with minimal
-          supervision and/or follow-up.
-        </li>
-        <li>
-          Ability and willingness to mentor and support other team members to
-          enrich their knowledge and experience.
-        </li>
-        <li>Ability to provide clear documentation for produced work.</li>
-        <li>Responding quickly when others need help or support.</li>
+    covered: (
+      <ul style={{ listStyle: 'none', padding: 0 }}>
+        {group.questions.map((question, questionIndex) => (
+          <li key={questionIndex.toString()}>
+            <Checkbox checked={question.is_sufficient} />
+          </li>
+        ))}
       </ul>
     ),
-    covered: <Checkbox checked={false}></Checkbox>,
-    point: 20,
-  },
-  {
-    key: "3",
-    kpi: "Teamwork",
-    quetions: (
-      <ul>
-        <li>
-          Working well with others and helping create a positive team
-          environment.
-        </li>
-        <li>Adding valuable input to team discussions and decisions.</li>
-        <li>Always being there to help team members when they need it.</li>
-        <li>
-          Performing code reviews and providing constructive feedback to other
-          team members
-        </li>
-        <li>Listening to feedback and using it to improve.</li>
-        <li>Solving any conflicts in the team in a good way.</li>
+    rate: (
+      <ul style={{ listStyle: 'none', padding: 0 }}>
+        {group.questions.map((question, questionIndex) => (
+          <li key={questionIndex.toString()}>
+            {question.score}
+          </li>
+        ))}
       </ul>
     ),
-    covered: <Checkbox checked={true}></Checkbox>,
-    point: 30,
-  },
-  {
-    key: "4",
-    kpi: "Extra Hats",
-    quetions: (
-      <ul>
-        <li>
-          Taking on additional roles effectively, such as an epic owner or
-          temporary engineering manager.
-        </li>
-        <li>
-          Leading and planning strategically in these additional (epic owner or
-          engineering manager) roles.
-        </li>
-        <li>
-          Maintaining productivity and quality of work while handling these
-          additional (epic owner or engineering manager) roles.
-        </li>
-        <li>
-          Achieving the assigned goals of these additional (epic owner or
-          engineering manager) roles.
-        </li>
-      </ul>
-    ),
-    covered: <Checkbox checked={true}></Checkbox>,
-    point: 30,
-  },
-  {
-    key: "5",
-    kpi: "Cultural Behavior",
-    quetions: (
-      <ul>
-        <li>
-          Helping others, even outside their role, and understanding everyone's
-          needs.
-        </li>
-        <li>
-          Taking ownership of mistakes, learning from them, and celebrating
-          teammates' accomplishments.
-        </li>
-        <li>
-          Seeking continuous learning, achieving personal and team objectives,
-          and thriving in autonomous situations.
-        </li>
-        <li>
-          Leveraging self-awareness, expertise, and setting an example in
-          professional communication.
-        </li>
-        <li>
-          Upholding the company's values and principles, showing an
-          entrepreneurial spirit, and striving for excellence.
-        </li>
-      </ul>
-    ),
-    covered: <Checkbox checked={false}></Checkbox>,
-    point: 30,
-  },
-];
+  }));
+
+  return data;
+};
 
 const Feedback = () => {
+  const [data, setData] = useState([]);
   const [inputValue, setInputValue] = useState('');
 
   const onChange = (event) => {
@@ -187,7 +114,7 @@ const Feedback = () => {
     try {
       console.log("handleSubmit");
       const evaluatorId = 1;
-      // Make the API call using the postData function
+      // Make the API call using the postFeedback function
       const response = await postFeedback(evaluatorId, inputValue);
       // Handle success, if needed
       console.log(response);
@@ -196,6 +123,20 @@ const Feedback = () => {
       console.error(error);
     }
   }
+
+  const fetchDataFromApi = async () => {
+    try {
+      const responseData = await getEvaluation();
+      setData(transformResponseData(responseData));
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchDataFromApi();
+  }, []); // Run only once on component mount
+
   const items = [
     {
       key: "1",
@@ -319,6 +260,7 @@ const Feedback = () => {
       ),
     },
   ];
+
   return (
     <>
       <Col span={12}>
