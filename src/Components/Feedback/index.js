@@ -1,5 +1,5 @@
 import { HomeOutlined, UserOutlined } from "@ant-design/icons";
-import React from "react";
+import React, { useState } from "react";
 import {
   Breadcrumb,
   Col,
@@ -15,12 +15,10 @@ import {
 } from "antd";
 import logo from "../../images/logo-3.PNG.jpg";
 import quote from "../../images/left-quote-svgrepo-com.svg";
+import { postFeedback } from '../../api';
 const { Header, Content } = Layout;
 const { TextArea } = Input;
 
-const onChange = (key) => {
-  console.log(key);
-};
 const columns = [
   {
     title: "KPI",
@@ -174,167 +172,192 @@ const data = [
     point: 30,
   },
 ];
-const items = [
-  {
-    key: "1",
-    label: "Post a Review",
-    children: (
-      <>
-        <Table columns={columns} dataSource={data} pagination={false} />
-        <Divider orientation="left" style={{ color: "#38507f" }}>
-          Post a review about this employee regarding what you liked or disliked
-          in him/her
-        </Divider>
-        <TextArea
-          showCount
-          maxLength={100}
-          onChange={onChange}
-          placeholder="Your thoughts 💭..."
-          style={{ height: 200, resize: "none" }}
-        />
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "end",
-            padding: "30px",
-            paddingRight: 0,
-          }}
-        >
-          <Button
-            type="primary"
-            htmlType="submit"
-            style={{ backgroundColor: "#38507F", width: "20%", height: "38px" }}
-          >
-            Submit
-          </Button>
-        </div>
-      </>
-    ),
-  },
-  {
-    key: "2",
-    label: "Your Reviews",
-    children: (
-      <Row gutter={16} className="quote-reviews">
-        <Col span={24} style={{ marginBottom: 16 }}>
-          <Card bordered={false}>
-            <img src={quote} width={35} />
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-              finibus, urna non cursus dictum, odio enim volutpat ligula, vitae
-              tempus elit lorem a nulla. Maecenas ut cursus mauris. Mauris vitae
-              sodales dolor. Donec risus justo, vulputate pellentesque congue
-              quis, pretium vel eros. Pellentesque varius maximus orci quis
-              tempus. Donec sodales nibh eu odio bibendum eleifend. Pellentesque
-              dapibus hendrerit urna, ac mollis erat posuere eget. Pellentesque
-              habitant morbi tristique senectus et netus et malesuada fames ac
-              turpis egestas. Phasellus eleifend justo purus, quis luctus ipsum
-              finibus ac. Integer at vulputate felis. In sed placerat dolor.
-              Fusce porta a nisl in tincidunt. Aenean sit amet aliquam enim.
-            </p>
-          </Card>
-        </Col>
-        <Col span={24} style={{ marginBottom: 16 }}>
-          <Card bordered={false}>
-            <img src={quote} width={35} />
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-              finibus, urna non cursus dictum, odio enim volutpat ligula, vitae
-              tempus elit lorem a nulla. Maecenas ut cursus mauris. Mauris vitae
-              sodales dolor. Donec risus justo, vulputate pellentesque congue
-              quis, pretium vel eros. Pellentesque varius maximus orci quis
-              tempus. Donec sodales nibh eu odio bibendum eleifend. Pellentesque
-              dapibus hendrerit urna, ac mollis erat posuere eget. Pellentesque
-              habitant morbi tristique senectus et netus et malesuada fames ac
-              turpis egestas. Phasellus eleifend justo purus, quis luctus ipsum
-              finibus ac. Integer at vulputate felis. In sed placerat dolor.
-              Fusce porta a nisl in tincidunt. Aenean sit amet aliquam enim.
-            </p>
-          </Card>
-        </Col>
-        <Col span={24} style={{ marginBottom: 16 }}>
-          <Card bordered={false}>
-            <img src={quote} width={35} />
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-              finibus, urna non cursus dictum, odio enim volutpat ligula, vitae
-              tempus elit lorem a nulla. Maecenas ut cursus mauris. Mauris vitae
-              sodales dolor. Donec risus justo, vulputate pellentesque congue
-              quis, pretium vel eros. Pellentesque varius maximus orci quis
-              tempus. Donec sodales nibh eu odio bibendum eleifend. Pellentesque
-              dapibus hendrerit urna, ac mollis erat posuere eget. Pellentesque
-              habitant morbi tristique senectus et netus et malesuada fames ac
-              turpis egestas. Phasellus eleifend justo purus, quis luctus ipsum
-              finibus ac. Integer at vulputate felis.
-            </p>
-          </Card>
-        </Col>
-        <Col span={24} style={{ marginBottom: 16 }}>
-          <Card bordered={false}>
-            <img src={quote} width={35} />
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-              finibus, urna non cursus dictum, odio enim volutpat ligula, vitae
-              tempus elit lorem a nulla. Maecenas ut cursus mauris.
-            </p>
-          </Card>
-        </Col>
-        <Col span={24} style={{ marginBottom: 16 }}>
-          <Card bordered={false}>
-            <img src={quote} width={35} />
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-              finibus, urna non cursus dictum, odio enim volutpat ligula, vitae
-              tempus elit lorem a nulla. Maecenas ut cursus mauris. Mauris vitae
-              sodales dolor. Donec risus justo, vulputate pellentesque congue
-              quis, pretium vel eros. Pellentesque varius maximus orci quis
-              tempus. Donec sodales nibh eu odio bibendum eleifend.
-            </p>
-          </Card>
-        </Col>
-      </Row>
-    ),
-  },
-];
 
-const Feedback = () => (
-  <>
-    <Col span={12}>
-      <Breadcrumb
-        items={[
-          {
-            href: "",
-            title: <HomeOutlined />,
-          },
-          {
-            href: "",
-            title: (
-              <>
-                <UserOutlined />
-                <span>My Profile</span>
-              </>
-            ),
-          },
-          {
-            title: "Feedback",
-          },
-        ]}
-      />
-    </Col>
-    <Col
-      span={12}
-      style={{ display: "flex", justifyContent: "end", alignItems: "center" }}
-    >
-      <Button
-        type="primary"
-        style={{ backgroundColor: "#38507F", height: "38px" }}
+const Feedback = () => {
+  const [inputValue, setInputValue] = useState('');
+
+  const onChange = (event) => {
+    if (event && event.target) {
+      console.log(event.target.value);
+      setInputValue(event.target.value);
+    }
+  };
+
+  const handleSubmit = async () => {
+    try {
+      console.log("handleSubmit");
+      const evaluatorId = 1;
+      // Make the API call using the postData function
+      const response = await postFeedback(evaluatorId, inputValue);
+      // Handle success, if needed
+      console.log(response);
+    } catch (error) {
+      // Handle error, if needed
+      console.error(error);
+    }
+  }
+  const items = [
+    {
+      key: "1",
+      label: "Post a Review",
+      children: (
+        <>
+          <Table columns={columns} dataSource={data} pagination={false} />
+          <Divider orientation="left" style={{ color: "#38507f" }}>
+            Post a review about this employee regarding what you liked or disliked
+            in him/her
+          </Divider>
+          <TextArea
+            showCount
+            maxLength={100}
+            onChange={onChange}
+            placeholder="Your thoughts 💭..."
+            style={{ height: 200, resize: "none" }}
+          />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "end",
+              padding: "30px",
+              paddingRight: 0,
+            }}
+          >
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{ backgroundColor: "#38507F", width: "20%", height: "38px" }}
+              onClick={handleSubmit}
+            >
+              Submit
+            </Button>
+          </div>
+        </>
+      ),
+    },
+    {
+      key: "2",
+      label: "Your Reviews",
+      children: (
+        <Row gutter={16} className="quote-reviews">
+          <Col span={24} style={{ marginBottom: 16 }}>
+            <Card bordered={false}>
+              <img src={quote} width={35} />
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+                finibus, urna non cursus dictum, odio enim volutpat ligula, vitae
+                tempus elit lorem a nulla. Maecenas ut cursus mauris. Mauris vitae
+                sodales dolor. Donec risus justo, vulputate pellentesque congue
+                quis, pretium vel eros. Pellentesque varius maximus orci quis
+                tempus. Donec sodales nibh eu odio bibendum eleifend. Pellentesque
+                dapibus hendrerit urna, ac mollis erat posuere eget. Pellentesque
+                habitant morbi tristique senectus et netus et malesuada fames ac
+                turpis egestas. Phasellus eleifend justo purus, quis luctus ipsum
+                finibus ac. Integer at vulputate felis. In sed placerat dolor.
+                Fusce porta a nisl in tincidunt. Aenean sit amet aliquam enim.
+              </p>
+            </Card>
+          </Col>
+          <Col span={24} style={{ marginBottom: 16 }}>
+            <Card bordered={false}>
+              <img src={quote} width={35} />
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+                finibus, urna non cursus dictum, odio enim volutpat ligula, vitae
+                tempus elit lorem a nulla. Maecenas ut cursus mauris. Mauris vitae
+                sodales dolor. Donec risus justo, vulputate pellentesque congue
+                quis, pretium vel eros. Pellentesque varius maximus orci quis
+                tempus. Donec sodales nibh eu odio bibendum eleifend. Pellentesque
+                dapibus hendrerit urna, ac mollis erat posuere eget. Pellentesque
+                habitant morbi tristique senectus et netus et malesuada fames ac
+                turpis egestas. Phasellus eleifend justo purus, quis luctus ipsum
+                finibus ac. Integer at vulputate felis. In sed placerat dolor.
+                Fusce porta a nisl in tincidunt. Aenean sit amet aliquam enim.
+              </p>
+            </Card>
+          </Col>
+          <Col span={24} style={{ marginBottom: 16 }}>
+            <Card bordered={false}>
+              <img src={quote} width={35} />
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+                finibus, urna non cursus dictum, odio enim volutpat ligula, vitae
+                tempus elit lorem a nulla. Maecenas ut cursus mauris. Mauris vitae
+                sodales dolor. Donec risus justo, vulputate pellentesque congue
+                quis, pretium vel eros. Pellentesque varius maximus orci quis
+                tempus. Donec sodales nibh eu odio bibendum eleifend. Pellentesque
+                dapibus hendrerit urna, ac mollis erat posuere eget. Pellentesque
+                habitant morbi tristique senectus et netus et malesuada fames ac
+                turpis egestas. Phasellus eleifend justo purus, quis luctus ipsum
+                finibus ac. Integer at vulputate felis.
+              </p>
+            </Card>
+          </Col>
+          <Col span={24} style={{ marginBottom: 16 }}>
+            <Card bordered={false}>
+              <img src={quote} width={35} />
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+                finibus, urna non cursus dictum, odio enim volutpat ligula, vitae
+                tempus elit lorem a nulla. Maecenas ut cursus mauris.
+              </p>
+            </Card>
+          </Col>
+          <Col span={24} style={{ marginBottom: 16 }}>
+            <Card bordered={false}>
+              <img src={quote} width={35} />
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+                finibus, urna non cursus dictum, odio enim volutpat ligula, vitae
+                tempus elit lorem a nulla. Maecenas ut cursus mauris. Mauris vitae
+                sodales dolor. Donec risus justo, vulputate pellentesque congue
+                quis, pretium vel eros. Pellentesque varius maximus orci quis
+                tempus. Donec sodales nibh eu odio bibendum eleifend.
+              </p>
+            </Card>
+          </Col>
+        </Row>
+      ),
+    },
+  ];
+  return (
+    <>
+      <Col span={12}>
+        <Breadcrumb
+          items={[
+            {
+              href: "",
+              title: <HomeOutlined />,
+            },
+            {
+              href: "",
+              title: (
+                <>
+                  <UserOutlined />
+                  <span>My Profile</span>
+                </>
+              ),
+            },
+            {
+              title: "Feedback",
+            },
+          ]}
+        />
+      </Col>
+      <Col
+        span={12}
+        style={{ display: "flex", justifyContent: "end", alignItems: "center" }}
       >
-        Validate using AI
-      </Button>
-    </Col>
-    <Col span={24}>
-      <Tabs onChange={onChange} type="card" items={items} />
-    </Col>
-  </>
-);
+        <Button
+          type="primary"
+          style={{ backgroundColor: "#38507F", height: "38px" }}
+        >
+          Validate using AI
+        </Button>
+      </Col>
+      <Col span={24}>
+        <Tabs onChange={onChange} type="card" items={items} />
+      </Col>
+    </>
+  )
+};
 export default Feedback;
