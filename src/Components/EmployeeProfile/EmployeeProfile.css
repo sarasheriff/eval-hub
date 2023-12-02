@@ -1,0 +1,30 @@
+.emp-profile-icons {
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    padding: 5px;
+    margin-right: 10px;
+    color: #38507F;
+    background: #dddddd42;
+}
+.emp-data {
+    padding: 20px;
+    background: #364f7f0a;
+    /* background: #364f7f26; */
+    border-radius: 10px;
+    margin-bottom: 20px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+.emp-data:hover {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    transition: .5s;
+}
+.mentees-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.mentees-section .emp-profile-icons {
+    background-color: #fff;
+    font-size: 20px;
+}
