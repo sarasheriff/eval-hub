@@ -17,52 +17,8 @@ import {
 } from "antd";
 import quote from "../../images/left-quote-svgrepo-com.svg";
 import { postFeedback, getEvaluation, getFeedbacks, getReport, validateFeedbacks, evaluateScore } from '../../api';
-const { Header, Content } = Layout;
 const { TextArea } = Input;
 
-const onChange = (key) => {
-  console.log(key);
-};
-const suggestions = [
-  {
-    question:
-      "Does employee work well with others, or he lacks in this category?",
-    is_sufficient: false,
-    suggestions:
-      "The feedback lacks clarity and specificity. Can you provide more specific instances or examples of how the employee does not work well with others? Please provide more details to support the feedback.",
-  },
-  {
-    question: "Responding quickly when others need help or support.",
-    is_sufficient: false,
-    suggestions:
-      "The feedback lacks clarity and specificity. Can you provide more specific instances or examples of when the employee did not respond quickly to others needing help or support? Please provide more details to support the feedback.",
-  },
-  {
-    question: "Adding valuable input to team discussions and decisions.",
-    is_sufficient: false,
-    suggestions:
-      "The feedback lacks clarity and specificity. Can you provide more specific instances or examples of when the employee did not add valuable input to team discussions and decisions? Please provide more details to support the feedback.",
-  },
-  {
-    question:
-      "Does employee work well with others, or he lacks in this category?",
-    is_sufficient: false,
-    suggestions:
-      "The feedback lacks clarity and specificity. Can you provide more specific instances or examples of how the employee does not work well with others? Please provide more details to support the feedback.",
-  },
-  {
-    question: "Responding quickly when others need help or support.",
-    is_sufficient: false,
-    suggestions:
-      "The feedback lacks clarity and specificity. Can you provide more specific instances or examples of when the employee did not respond quickly to others needing help or support? Please provide more details to support the feedback.",
-  },
-  {
-    question: "Adding valuable input to team discussions and decisions.",
-    is_sufficient: false,
-    suggestions:
-      "The feedback lacks clarity and specificity. Can you provide more specific instances or examples of when the employee did not add valuable input to team discussions and decisions? Please provide more details to support the feedback.",
-  },
-];
 const columns = [
   {
     title: "KPI",
@@ -147,6 +103,7 @@ const Feedback = () => {
   const [data, setData] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [feedbacks, setFeedbacks] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
 
   const onChange = (event) => {
     if (event && event.target) {
@@ -157,7 +114,6 @@ const Feedback = () => {
 
   const handleSubmit = async () => {
     try {
-      console.log("handleSubmit");
       const evaluatorId = 1;
       // Make the API call using the postFeedback function
       const response = await postFeedback(evaluatorId, inputValue);
@@ -202,7 +158,9 @@ const Feedback = () => {
 
   const validateUsingAI = async () => {
     try {
-      await validateFeedbacks();
+      const responseData = await validateFeedbacks();
+      const filteredData = responseData.filter(item => !item.is_sufficient);
+      setSuggestions(filteredData);
       await fetchDataFromApi();
     } catch (error) {
       console.error('Error in downloadPDF function:', error);
