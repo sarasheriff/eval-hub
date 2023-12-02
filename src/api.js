@@ -75,3 +75,13 @@ export const getHierarchyData = async () => {
     throw error;
   }
 };
+
+export const validateFeedbacks = async (evaluatorId, feedback) => {
+  try {
+    const response = await api.post('/validation/feedbacks/evaluators/1/employees/2');
+    return response.data;
+  } catch (error) {
+    console.error('Error details:', error); // Log the full error object
+    throw error;
+  }
+};

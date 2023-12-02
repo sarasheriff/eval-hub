@@ -15,7 +15,7 @@ import {
 } from "antd";
 import logo from "../../images/logo-3.PNG.jpg";
 import quote from "../../images/left-quote-svgrepo-com.svg";
-import { postFeedback, getEvaluation, getFeedbacks, getReport } from '../../api';
+import { postFeedback, getEvaluation, getFeedbacks, getReport, validateFeedbacks } from '../../api';
 const { Header, Content } = Layout;
 const { TextArea } = Input;
 
@@ -80,7 +80,7 @@ const transformResponseData = (responseData) => {
       <ul style={{ listStyle: 'none', padding: 0 }}>
         {group.questions.map((question, questionIndex) => (
           <li key={questionIndex.toString()}>
-            <Checkbox checked={question.is_sufficient} />
+            <Checkbox checked={question.is_sufficient === "true" || question.is_sufficient === "True"} />
           </li>
         ))}
       </ul>
@@ -151,6 +151,15 @@ const Feedback = () => {
   const handleDownload = async () => {
     try {
       await getReport();
+    } catch (error) {
+      console.error('Error in downloadPDF function:', error);
+    }
+  };
+
+  const validateUsingAI = async () => {
+    try {
+      await validateFeedbacks();
+      await fetchDataFromApi();
     } catch (error) {
       console.error('Error in downloadPDF function:', error);
     }
@@ -243,6 +252,7 @@ const Feedback = () => {
         <Button
           type="primary"
           style={{ backgroundColor: "#38507F", height: "38px" }}
+          onClick={validateUsingAI}
         >
           Validate using AI
         </Button>
