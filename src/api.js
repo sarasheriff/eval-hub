@@ -40,3 +40,28 @@ export const getFeedbacks = async (evaluatorId, feedback) => {
     throw error;
   }
 };
+
+export const getReport = async () => {
+  try {
+    const response = await api.get('/employee/2/report', {
+      responseType: 'blob',  // Set responseType to 'blob' for binary data (PDF)
+    });
+
+    // Create a Blob from the binary data
+    const blob = new Blob([response.data], { type: 'application/pdf' });
+
+    // Create a link element to trigger the download
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = 'employee_feedback.pdf';
+
+    // Append the link to the document and trigger the click event
+    document.body.appendChild(link);
+    link.click();
+
+    // Remove the link from the document
+    document.body.removeChild(link);
+  } catch (error) {
+    console.error('Error downloading PDF:', error);
+  }
+};

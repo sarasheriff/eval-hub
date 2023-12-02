@@ -15,7 +15,7 @@ import {
 } from "antd";
 import logo from "../../images/logo-3.PNG.jpg";
 import quote from "../../images/left-quote-svgrepo-com.svg";
-import { postFeedback, getEvaluation, getFeedbacks } from '../../api';
+import { postFeedback, getEvaluation, getFeedbacks, getReport } from '../../api';
 const { Header, Content } = Layout;
 const { TextArea } = Input;
 
@@ -148,6 +148,14 @@ const Feedback = () => {
     getFeedbacksFromApi();
   }, []); // Run only once on component mount
 
+  const handleDownload = async () => {
+    try {
+      await getReport();
+    } catch (error) {
+      console.error('Error in downloadPDF function:', error);
+    }
+  };
+
   const items = [
     {
       key: "1",
@@ -237,6 +245,13 @@ const Feedback = () => {
           style={{ backgroundColor: "#38507F", height: "38px" }}
         >
           Validate using AI
+        </Button>
+        <Button
+          type="primary"
+          style={{ backgroundColor: "#38507F", height: "38px" }}
+          onClick={handleDownload}
+        >
+          Report
         </Button>
       </Col>
       <Col span={24}>
