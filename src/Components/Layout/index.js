@@ -2,6 +2,7 @@ import React from "react";
 import { Row, Layout, Avatar, Menu, Tooltip } from "antd";
 import logo from "../../images/logo-3.PNG.jpg";
 import userImg from "../../images/4952209_39546.jpg";
+import { TeamOutlined } from "@ant-design/icons";
 import {
   DashboardOutlined,
   ApartmentOutlined,
@@ -129,10 +130,10 @@ function PageLayout({ children }) {
                 },
                 {
                   key: "3",
-                  icon: <UploadOutlined />,
+                  icon: <TeamOutlined />,
                   label: (
                     <span>
-                      Squad
+                      My Squad
                       <Link to={"/eval-hub/squad"} />
                     </span>
                   ),
