@@ -49,7 +49,9 @@
   margin: 0 !important;
 } */
 
-body, :where(.css-dev-only-do-not-override-1adbn6x)[class^="ant-layout"], :where(.css-dev-only-do-not-override-1adbn6x)[class*=" ant-layout"] {
+body, :where(.css-dev-only-do-not-override-1adbn6x)[class^="ant-layout"],
+ :where(.css-dev-only-do-not-override-1adbn6x)[class*=" ant-layout"],
+ :where(.css-dev-only-do-not-override-1adbn6x).ant-card {
   margin: 0;
   font-family: 'Poppins', sans-serif !important;
   -webkit-font-smoothing: antialiased;
@@ -58,4 +60,8 @@ body, :where(.css-dev-only-do-not-override-1adbn6x)[class^="ant-layout"], :where
 
 code {
   font-family: 'Poppins' !important
+}
+
+.ant-layout {
+  min-height: 100vh !important;
 }

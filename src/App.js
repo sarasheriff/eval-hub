@@ -6,6 +6,8 @@ import Feedback from "./Components/Feedback";
 
 import "./App.css";
 import PageLayout from "./Components/Layout";
+import EmployeeProfile from "./Components/EmployeeProfile";
+import Dashboard from "./Components/Dashboard";
 
 function App() {
   return (
@@ -19,8 +21,10 @@ function App() {
       ) : (
         <PageLayout>
           <Routes>
-            <Route path="/eval-hub/emp" element={<HierarchyTeam />} />
+            <Route path="/eval-hub/dashboard" element={<Dashboard />} />
+            <Route path="/eval-hub/organization" element={<HierarchyTeam />} />
             <Route path="/eval-hub/feedback-employees" element={<Feedback />} />
+            <Route path="/eval-hub/my-profile" element={<EmployeeProfile />} />
           </Routes>
         </PageLayout>
       )}

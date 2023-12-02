@@ -1,36 +1,25 @@
 import React from "react";
-import { Breadcrumb, Col, Row, Layout, Divider, Avatar, Menu } from "antd";
+import { Row, Layout, Avatar, Menu, Tooltip } from "antd";
 import logo from "../../images/logo-3.PNG.jpg";
 import userImg from "../../images/4952209_39546.jpg";
-import {DashboardOutlined, VideoCameraOutlined,UploadOutlined } from "@ant-design/icons";
-import "../../App.css"
+import {
+  DashboardOutlined,
+  ApartmentOutlined,
+  UploadOutlined,
+  BellFilled,
+} from "@ant-design/icons";
+import "../../App.css";
+import { Link, useNavigate } from "react-router-dom";
 const { Header, Content, Sider } = Layout;
 
-/* [
-                {
-                  href: "",
-                  title: <HomeOutlined />,
-                },
-                {
-                  href: "",
-                  title: (
-                    <>
-                      <UserOutlined />
-                      <span>My Profile</span>
-                    </>
-                  ),
-                },
-                {
-                  title: "Feedback",
-                },
-              ]*/
 function PageLayout({ children }) {
+  const navigate = useNavigate();
   const siderStyle = {
     textAlign: "center",
     lineHeight: "120px",
-    // color: "#fff",
-    backgroundColor: "#fff",
+    backgroundColor: "rgb(255 255 255 / 47%)",
   };
+
   return (
     <Layout>
       <Header
@@ -42,15 +31,51 @@ function PageLayout({ children }) {
           top: "-10px",
         }}
       >
-        <img src={logo} width="155px" />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <img src={logo} width="155px" />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignContent: "center",
+            }}
+          >
+            <BellFilled
+              style={{
+                color: "#38507F",
+                fontSize: "24px",
+                margin: "0px 13px",
+                padding: "12px",
+                border: "1px solid #E8EDEE",
+                borderRadius: "50%",
+                background: "#dddddd2e",
+              }}
+            />
+          <Tooltip placement="rightBottom" title={'My Profile'}>
+            <Avatar
+              className="avatar-image bg-light-gray"
+              size={50}
+              src={userImg}
+              style={{cursor:"pointer"}}
+              onClick={() => navigate("/eval-hub/my-profile")}
+            />
+            </Tooltip>
+          </div>
+        </div>
       </Header>
       <Layout hasSider className="proj-layout">
         <Sider style={siderStyle}>
-          <div>
+          {/* <div>
             <Avatar
               className="avatar-image bg-light-gray"
               size={100}
-              src={userImg}
+              src={logo}
             />
             <div style={{ lineHeight: 1.5 }}>
               <span
@@ -66,7 +91,7 @@ function PageLayout({ children }) {
               <span
                 style={{
                   fontStyle: "italic",
-                  color: " #a4a2a2",
+                  color: "#a4a2a2",
                   fontSize: "13px",
                 }}
               >
@@ -74,35 +99,46 @@ function PageLayout({ children }) {
               </span>
             </div>
             <Divider style={{borderBlockStart:"3px solid rgba(5, 5, 5, 0.06)"}} />
-          </div>
+          </div> */}
           <div>
-          <Menu
-          theme="light"
-          mode="inline"
-          defaultSelectedKeys={['1']}
-          items={[
-            {
-              key: '1',
-              icon: <DashboardOutlined />,
-              label: 'Dashboard',
-            },
-            {
-              key: '2',
-              icon: <VideoCameraOutlined />,
-              label: 'nav 2',
-            },
-            {
-              key: '3',
-              icon: <UploadOutlined />,
-              label: 'nav 3',
-            },
-          ]}
-        />
+            <Menu
+              theme="light"
+              style={{ background: "transparent", paddingTop: "30px" }}
+              mode="inline"
+              defaultSelectedKeys={["1"]}
+              items={[
+                {
+                  key: "1",
+                  icon: <DashboardOutlined />,
+                  label: (
+                    <span>
+                      Dashboard
+                      <Link to={"/eval-hub/dashboard"} />
+                    </span>
+                  ),
+                },
+                {
+                  key: "2",
+                  icon: <ApartmentOutlined />,
+                  label: (
+                    <span>
+                      Organization
+                      <Link to={"/eval-hub/organization"} />
+                    </span>
+                  ),
+                },
+                {
+                  key: "3",
+                  icon: <UploadOutlined />,
+                  label: "nav 3",
+                },
+              ]}
+            />
           </div>
         </Sider>
         <Content
           style={{
-            padding: "0 50px",
+            padding: "30px 50px",
           }}
         >
           <Row>{children}</Row>
