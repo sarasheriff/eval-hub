@@ -130,7 +130,12 @@ function PageLayout({ children }) {
                 {
                   key: "3",
                   icon: <UploadOutlined />,
-                  label: "nav 3",
+                  label: (
+                    <span>
+                      Squad
+                      <Link to={"/eval-hub/squad"} />
+                    </span>
+                  ),
                 },
               ]}
             />
