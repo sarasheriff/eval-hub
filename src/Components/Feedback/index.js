@@ -1,10 +1,12 @@
-import { HomeOutlined, UserOutlined } from "@ant-design/icons";
+import { HomeOutlined, UserOutlined, CaretRightOutlined } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 import {
   Breadcrumb,
   Col,
   Row,
   Card,
+  Space,
+  Collapse,
   Divider,
   Layout,
   Table,
@@ -13,12 +15,54 @@ import {
   Tabs,
   Button,
 } from "antd";
-import logo from "../../images/logo-3.PNG.jpg";
 import quote from "../../images/left-quote-svgrepo-com.svg";
 import { postFeedback, getEvaluation, getFeedbacks, getReport, validateFeedbacks, evaluateScore } from '../../api';
 const { Header, Content } = Layout;
 const { TextArea } = Input;
 
+const onChange = (key) => {
+  console.log(key);
+};
+const suggestions = [
+  {
+    question:
+      "Does employee work well with others, or he lacks in this category?",
+    is_sufficient: false,
+    suggestions:
+      "The feedback lacks clarity and specificity. Can you provide more specific instances or examples of how the employee does not work well with others? Please provide more details to support the feedback.",
+  },
+  {
+    question: "Responding quickly when others need help or support.",
+    is_sufficient: false,
+    suggestions:
+      "The feedback lacks clarity and specificity. Can you provide more specific instances or examples of when the employee did not respond quickly to others needing help or support? Please provide more details to support the feedback.",
+  },
+  {
+    question: "Adding valuable input to team discussions and decisions.",
+    is_sufficient: false,
+    suggestions:
+      "The feedback lacks clarity and specificity. Can you provide more specific instances or examples of when the employee did not add valuable input to team discussions and decisions? Please provide more details to support the feedback.",
+  },
+  {
+    question:
+      "Does employee work well with others, or he lacks in this category?",
+    is_sufficient: false,
+    suggestions:
+      "The feedback lacks clarity and specificity. Can you provide more specific instances or examples of how the employee does not work well with others? Please provide more details to support the feedback.",
+  },
+  {
+    question: "Responding quickly when others need help or support.",
+    is_sufficient: false,
+    suggestions:
+      "The feedback lacks clarity and specificity. Can you provide more specific instances or examples of when the employee did not respond quickly to others needing help or support? Please provide more details to support the feedback.",
+  },
+  {
+    question: "Adding valuable input to team discussions and decisions.",
+    is_sufficient: false,
+    suggestions:
+      "The feedback lacks clarity and specificity. Can you provide more specific instances or examples of when the employee did not add valuable input to team discussions and decisions? Please provide more details to support the feedback.",
+  },
+];
 const columns = [
   {
     title: "KPI",
@@ -228,6 +272,35 @@ const Feedback = () => {
         </Row>
       ),
     },
+    {
+      key: "3",
+      label: "Suggestions",
+      children: (
+        <Space direction="vertical">
+          {suggestions.map((suggest, index) => (
+            <Collapse
+              collapsible="icon"
+              defaultActiveKey={["0"]}
+              style={{
+                backgroundColor: "#38507F",
+                color: "#fff",
+                fontFamily: "Poppins",
+              }}
+              expandIcon={({ isActive }) => (
+                <CaretRightOutlined rotate={isActive ? 90 : 0} />
+              )}
+              items={[
+                {
+                  key: index,
+                  label: suggest.question,
+                  children: <p>{suggest.suggestions}</p>,
+                },
+              ]}
+            />
+          ))}
+        </Space>
+      ),
+    }
   ];
 
   return (
