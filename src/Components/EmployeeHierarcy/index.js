@@ -1,114 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Avatar, Card, Col, Row, Tag } from "antd";
 import { TeamOutlined, UserOutlined } from "@ant-design/icons";
 import "./hierarcy.css";
+import { getHierarchyData } from '../../api';
 
 const HierarchyTeam = () => {
-  let test2 = {
-    team: "Trianglz",
-    userProfilePicture:
-      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAflBMVEUjSnH///8ZRG1pf5gAOGZug5sAO2ccRm4UQmwAM2MAOmcHPmry9Pfi5uuGlqpXcI2irr25wczT2uHI0NgmTXNgeJNbc4/b3+WRoLKos8EAMmObqLgALF/n6+55i6H4+fq/xtBPaIYyVXkAJFsAHFdGY4MAIVlAXoAALWCLm64pygYtAAAD/UlEQVR4nO3ajXKiMBQFYLBIEoJVEP9FRJetff8X3JsEMFTb2s7OCJnzzdSa4nQ4vTQkIZ4HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAL3CRo9jzz7Z32Dly+OqIUaUG/9xG/ns0/2FHyWcIWEf6YTjRww6oeoneavtOrnNG3RC6iK5bPH6kPUjKcPRsBMynseN4t1E5Ositg08oYyv/UlscvDCoZ6GEtpxXlUR+fttXzrc+yFdpcmRJISKGQs6EFDmOOk4HkbPPt1faHoaGRLqUcSB2gfucf1dyI4hBjQJZXjtRiMqYh54UU4ljOhiDS3DTdheh2sq3qsqXngw/498l85b6esQI3ZHbavIFHF9npgShnM3+tJWGulOtIheqEEFdTOhJ4vZPvX9Qt0zPiTk3/26PpKi9mdVJ+S7rGoKphJOzkFtkAGvgiahxwNVOX1F6oTBc0/sv7kmZKd2/OJowjChhJlek3E0IVe3SBPLrYSTpi9V3eupPKr3biZU06b5OdXXqZMJ+ZpKWFbmduFkQjUZXp0TM+VwMaEeeb/wkl530smEatpEs6dAjdukF7mXkKt10fE2Eic9fXIwoXr1U0WtSUXuXaVi0Vl6OgjnEp5XnYT5X9cSzrN8YsvLo2MJ0+Aj52oYsC7nEqbVtKtyLeFdSDgYQf5JwtyVhKPD632DfB5zV/eptvXU+9knBgAAAI+ytwJTq6HffjjamT7dtu78xj5srGVvi6sqm5Zlqb7KitF8ibHlYllbLNjbsp08Ld9G1nyKWtNpWcc5La+mPYio13kbm+r6WFttSRgJe6Ddee4929qPuTd734/NOHxkL1kVPRibf5ZwrpaeRsLe8xXZCXedhLN90cw0OgnjHiRkiyRJ6NSLzSZJxiVNicwWmdmlTliYDTWx7wf0sVTtATvSod2FEh6blpXQq5KNMlPrqqvouek0JqU80/ld1M4nSpjs9S4nHq3MVRpv1b6o/cQkHAs6tl3XNdQ7wsR7N6GnNp3uT6rEu95sQqFS5eqvzVTC+qyiuoZmy2VQJ9RTQt4k9Fjdml0Kez4sPfWEKn3rTcAfJ3y/Sbi1Eo6CNf37FoegBx1p48uEZyEEUwm3NwmDrRBhm/CP3n0j+TjWveueGj3oaIyvEmpTcZPwUvelc1EnbPrjqblP6NferOR8ntD/PuH2bkK/XwkDShh6OmHxeQ3FzVX6RQ2N/qw3ZlmmvzNrKKl/lhn6DbM/77UD00gllFlmf9Rq9cXPuz1W6iErjUdnA919+Z3O9kskHCS+Prbmg9zn/S1rs37kZEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABw2T8JOFgMby7C2gAAAABJRU5ErkJggg==",
-    employees: [
-      {
-        name: "Engineering Team",
-        employees: [
-          {
-            level: "Level-5",
-            employees: [
-              {
-                id: 1,
-                level: "Level-5",
-                name: "Hadeer",
-                job_title: "Senior Software Engineer",
-              },
-            ],
-          },
-          {
-            level: "Level-3",
-            employees: [
-              {
-                id: 3,
-                level: "Level-3",
-                name: "Sara",
-                job_title: "Front-end Software Engineer 2",
-              },
-            ],
-          },
-          {
-            level: "Level-2",
-            employees: [
-              {
-                id: 2,
-                level: "Level-2",
-                name: "Ziad",
-                job_title: "Software Engineer 1",
-              },
-              {
-                id: 4,
-                level: "Level-2",
-                name: "Huda",
-                job_title: "Front-end Software Engineer 1",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        name: "Product Team",
-        employees: [
-          {
-            level: "Level-7",
-            employees: [
-              {
-                id: 7,
-                level: "Level-7",
-                name: "Esraa",
-                job_title: "Product Director",
-              },
-            ],
-          },
-          {
-            level: "Level-3",
-            employees: [
-              {
-                id: 6,
-                level: "Level-3",
-                name: "Yara",
-                job_title: "Product Manager",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        name: "Quality Team",
-        employees: [
-          {
-            level: "Level-6",
-            employees: [
-              {
-                id: 8,
-                level: "Level-6",
-                name: "Mai",
-                job_title: "Quality Team Lead",
-              },
-            ],
-          },
-          {
-            level: "Level-2",
-            employees: [
-              {
-                id: 5,
-                level: "Level-2",
-                name: "Menna",
-                job_title: "Quality Control Engineer 2",
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  };
 
   const levels = {
     "Level-1": "#C41D7F",
@@ -119,6 +15,46 @@ const HierarchyTeam = () => {
     "Level-6": "#7244BA",
     "Level-7": "#87d068",
   }
+
+  const [test2, setTest2] = useState({});
+
+  const adjustDataStructure = (data) => {
+    return {
+      team: "Squad",
+      userProfilePicture: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAflBMVEUjSnH///8ZRG1pf5gAOGZug5sAO2ccRm4UQmwAM2MAOmcHPmry9Pfi5uuGlqpXcI2irr25wczT2uHI0NgmTXNgeJNbc4/b3+WRoLKos8EAMmObqLgALF/n6+55i6H4+fq/xtBPaIYyVXkAJFsAHFdGY4MAIVlAXoAALWCLm64pygYtAAAD/UlEQVR4nO3ajXKiMBQFYLBIEoJVEP9FRJetff8X3JsEMFTb2s7OCJnzzdSa4nQ4vTQkIZ4HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAL3CRo9jzz7Z32Dly+OqIUaUG/9xG/ns0/2FHyWcIWEf6YTjRww6oeoneavtOrnNG3RC6iK5bPH6kPUjKcPRsBMynseN4t1E5Ositg08oYyv/UlscvDCoZ6GEtpxXlUR+fttXzrc+yFdpcmRJISKGQs6EFDmOOk4HkbPPt1faHoaGRLqUcSB2gfucf1dyI4hBjQJZXjtRiMqYh54UU4ljOhiDS3DTdheh2sq3qsqXngw/498l85b6esQI3ZHbavIFHF9npgShnM3+tJWGulOtIheqEEFdTOhJ4vZPvX9Qt0zPiTk3/26PpKi9mdVJ+S7rGoKphJOzkFtkAGvgiahxwNVOX1F6oTBc0/sv7kmZKd2/OJowjChhJlek3E0IVe3SBPLrYSTpi9V3eupPKr3biZU06b5OdXXqZMJ+ZpKWFbmduFkQjUZXp0TM+VwMaEeeb/wkl530smEatpEs6dAjdukF7mXkKt10fE2Eic9fXIwoXr1U0WtSUXuXaVi0Vl6OgjnEp5XnYT5X9cSzrN8YsvLo2MJ0+Aj52oYsC7nEqbVtKtyLeFdSDgYQf5JwtyVhKPD632DfB5zV/eptvXU+9knBgAAAI+ytwJTq6HffjjamT7dtu78xj5srGVvi6sqm5Zlqb7KitF8ibHlYllbLNjbsp08Ld9G1nyKWtNpWcc5La+mPYio13kbm+r6WFttSRgJe6Ddee4929qPuTd734/NOHxkL1kVPRibf5ZwrpaeRsLe8xXZCXedhLN90cw0OgnjHiRkiyRJ6NSLzSZJxiVNicwWmdmlTliYDTWx7wf0sVTtATvSod2FEh6blpXQq5KNMlPrqqvouek0JqU80/ld1M4nSpjs9S4nHq3MVRpv1b6o/cQkHAs6tl3XNdQ7wsR7N6GnNp3uT6rEu95sQqFS5eqvzVTC+qyiuoZmy2VQJ9RTQt4k9Fjdml0Kez4sPfWEKn3rTcAfJ3y/Sbi1Eo6CNf37FoegBx1p48uEZyEEUwm3NwmDrRBhm/CP3n0j+TjWveueGj3oaIyvEmpTcZPwUvelc1EnbPrjqblP6NferOR8ntD/PuH2bkK/XwkDShh6OmHxeQ3FzVX6RQ2N/qw3ZlmmvzNrKKl/lhn6DbM/77UD00gllFlmf9Rq9cXPuz1W6iErjUdnA919+Z3O9kskHCS+Prbmg9zn/S1rs37kZEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABw2T8JOFgMby7C2gAAAABJRU5ErkJggg==",
+      employees: data.map(team => ({
+        name: team.team,
+        employees: team.employees.map(employees => ({
+          level: employees.level,
+          employees: employees.employees.map(employee => ({
+            id: employee.id,
+            name: employee.name,
+            level: employee.level,
+            job_title: employee.job_title,
+          })),
+        })),
+      })),
+    };
+  };
+
+  const fetchData = async () => {
+    try {
+      const hierarchyData = await getHierarchyData();
+      console.log("hierarchyData")
+      console.log(hierarchyData)
+      const adjustedData = adjustDataStructure(hierarchyData);
+      console.log("adjustedData")
+      console.log(adjustedData)
+      setTest2(adjustedData);
+    } catch (error) {
+      // Handle error
+      console.log(error)
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const teamHierarchyRecurse = (teamHierarchy) => {
     console.log(teamHierarchy, "team");

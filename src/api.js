@@ -65,3 +65,13 @@ export const getReport = async () => {
     console.error('Error downloading PDF:', error);
   }
 };
+
+export const getHierarchyData = async () => {
+  try {
+    const response = await api.get(`/employees/hierarchy`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching hierarchy data:', error);
+    throw error;
+  }
+};
