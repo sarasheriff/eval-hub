@@ -1,69 +1,42 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Card, Col, Avatar } from "antd";
 import { PhoneFilled, MailFilled } from "@ant-design/icons";
 import userImg from "../../images/4952209_39546.jpg";
 import "./EmployeeProfile.css";
 import EmployeeCard from "./EmployeeCard";
-
-const employeeData = {
-  employeeId: 4,
-  employeeName: "Huda",
-  mentees: [],
-  colleagues: [
-    {
-      id: 6,
-      level: "Level-3",
-      department: "Product",
-      name: "Yara",
-      job_title: "Product Manager",
-      eval_done: "100", //extra
-    },
-    {
-      id: 5,
-      level: "Level-2",
-      department: "Quality",
-      name: "Menna",
-      job_title: "Quality Control Engineer 2",
-      eval_done: "3",
-    },
-    {
-      id: 3,
-      level: "Level-3",
-      department: "Engineering",
-      name: "Sara",
-      job_title: "Front-end Software Engineer 2",
-      eval_done: "0",
-    },
-    {
-      id: 2,
-      level: "Level-2",
-      department: "Engineering",
-      name: "Ziad",
-      job_title: "Software Engineer 1",
-      eval_done: "0",
-    },
-    {
-      id: 1,
-      level: "Level-5",
-      department: "Engineering",
-      name: "Hadeer",
-      job_title: "Senior Software Engineer",
-      eval_done: "50",
-    },
-  ],
-  mentors: [
-    {
-      id: 3,
-      level: "Level-3",
-      department: "Engineering",
-      name: "Sara",
-      job_title: "Front-end Software Engineer 2",
-      eval_done: "70",
-    },
-  ],
-};
+import { getEmployeesToEvaluate } from '../../api';
 
 const EmployeeProfile = () => { 
+  const [employeeData, setEmployeeData] = useState({});
+
+  useEffect(() => {
+    getEmployeesToEvaluateFromApi();
+  }, []);
+
+  const getEmployeesToEvaluateFromApi = async () => {
+    try {
+      const responseData = await getEmployeesToEvaluate();
+      const modifiedData = modifyEmployeeData(responseData);
+      setEmployeeData(modifiedData);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  const modifyEmployeeData = (data) => {
+    // Modify the eval_done property of the first colleague in the colleagues array
+    if (data && data.colleagues) {
+      if (data.colleagues.length > 0) {
+        data.colleagues[0].eval_done = "100";
+      }
+      if (data.colleagues.length > 1) {
+        data.colleagues[1].eval_done = "50";
+      }
+    }
+
+    return data;
+  };
+
   return (
   <>
     <Col span={24} style={{ marginBottom: "20px" }}>

@@ -95,3 +95,14 @@ export const evaluateScore = async (evaluatorId, feedback) => {
     throw error;
   }
 };
+
+
+export const getEmployeesToEvaluate = async () => {
+  try {
+    const response = await api.get(`/evaluators/1/employees-being-evaluated`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching hierarchy data:', error);
+    throw error;
+  }
+};
