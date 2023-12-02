@@ -65,3 +65,10 @@ code {
 .ant-layout {
   min-height: 100vh !important;
 }
+
+.ant-collapse-header {
+  color: #fff !important;
+}
+:where(.css-dev-only-do-not-override-1adbn6x).ant-space-vertical {
+  width: 100%;
+}
