@@ -15,7 +15,7 @@ import {
 } from "antd";
 import logo from "../../images/logo-3.PNG.jpg";
 import quote from "../../images/left-quote-svgrepo-com.svg";
-import { postFeedback, getEvaluation, getFeedbacks, getReport, validateFeedbacks } from '../../api';
+import { postFeedback, getEvaluation, getFeedbacks, getReport, validateFeedbacks, evaluateScore } from '../../api';
 const { Header, Content } = Layout;
 const { TextArea } = Input;
 
@@ -165,6 +165,15 @@ const Feedback = () => {
     }
   };
 
+  const scoreUsingAI = async () => {
+    try {
+      const responseData = await evaluateScore();
+      setData(transformResponseData(responseData));
+    } catch (error) {
+      console.error('Error in downloadPDF function:', error);
+    }
+  };
+
   const items = [
     {
       key: "1",
@@ -255,6 +264,13 @@ const Feedback = () => {
           onClick={validateUsingAI}
         >
           Validate using AI
+        </Button>
+        <Button
+          type="primary"
+          style={{ backgroundColor: "#38507F", height: "38px" }}
+          onClick={scoreUsingAI}
+        >
+          Score
         </Button>
         <Button
           type="primary"
