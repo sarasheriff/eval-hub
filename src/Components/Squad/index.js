@@ -100,11 +100,12 @@ const Squad = () => {
   };
 
   const options = {
+    nodes: { shape: "box" },
     layout: {
       randomSeed: 2,
     },
     edges: {
-      color: '#000000',
+      color: '#ddd',
     },
     height: '500px',
     interaction: {
@@ -120,9 +121,13 @@ const Squad = () => {
         springLength: 200,
         avoidOverlap: 0.2,
       },
+      hierarchicalRepulsion: {
+        nodeDistance: 90,
+      },
       stabilization: {
         enabled: true,
         iterations: 1000,
+        fit:true,
         updateInterval: 25,
       },
     },

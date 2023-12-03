@@ -55,7 +55,7 @@ const LandingPage = () => {
             Evaluation system in <span>AI</span>
           </h1>
           <p className="main-paragraph">
-            Eval8Hub is an AI-powered skills, knowledge assessment software &
+          EVALU is an AI-powered skills, knowledge assessment software &
             open source platform for evaluating.
           </p>
         </div>

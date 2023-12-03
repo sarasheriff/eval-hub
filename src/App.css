@@ -72,3 +72,6 @@ code {
 :where(.css-dev-only-do-not-override-1adbn6x).ant-space-vertical {
   width: 100%;
 }
+:where(.css-dev-only-do-not-override-2q8sxy).ant-card:not(.ant-card-bordered) {
+  height: 100%;
+}

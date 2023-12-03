@@ -97,7 +97,7 @@ const EmployeeProfile = () => {
         style={{ backgroundColor: "#9ACE62 ", color: "white" }}
         bordered={false}
       >
-        <spa>Completed Task</spa>
+        <span>Completed Task</span>
         <div style={{ fontSize: "25px", fontWeight: "bold" }}>2</div>
       </Card>
     </Col>
