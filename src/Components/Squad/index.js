@@ -196,7 +196,7 @@ const Squad = () => {
         avoidOverlap: 0.2,
       },
       hierarchicalRepulsion: {
-        nodeDistance: 90,
+        nodeDistance: 80,
       },
       stabilization: {
         enabled: true,
