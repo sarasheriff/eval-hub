@@ -75,7 +75,7 @@ const EmployeeProfile = () => {
                   {employeeData.employeeName}
                 </h3>
                 <i style={{ fontSize: "12px", color: "#a4a2a2" }}>
-                  UI/UX Designer
+                Senior Software Engineer
                 </i>
               </div>
               <div style={{ marginBottom: "10px" }}>
