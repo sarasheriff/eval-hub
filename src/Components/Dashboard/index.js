@@ -1,5 +1,6 @@
 import React from "react";
-import { Card, Col, Tag } from "antd";
+import { Card, Col, Breadcrumb } from "antd";
+import { HomeOutlined } from "@ant-design/icons";
 import { Line, Bar } from "react-chartjs-2";
 import passive from "../../images/passive.png";
 import promoted from "../../images/promoted.png";
@@ -67,6 +68,19 @@ const Dashboard = () => {
   };
   return (
     <>
+      <Col span={24}>
+        <Breadcrumb
+          items={[
+            {
+              href: "",
+              title: <HomeOutlined />,
+            },
+            {
+              title: "Dashboard",
+            },
+          ]}
+        />
+      </Col>
       <Col span={12} style={{ paddingRight: "8px", marginBottom: "20px" }}>
         <Card
           // style={{ backgroundColor: "#4E4E52", color: "white" }}
@@ -112,7 +126,7 @@ const Dashboard = () => {
               style={{
                 width: "200px",
                 background: " #E2C004",
-                margin:"0 20px",
+                margin: "0 20px",
                 background:
                   "linear-gradient(to bottom, #E2C004 15%, #F09F33 100%)",
                 color: "white",
@@ -138,7 +152,7 @@ const Dashboard = () => {
               style={{
                 width: "200px",
                 background: "#8D1EC3",
-                margin:"0 20px",
+                margin: "0 20px",
                 background:
                   "linear-gradient(to bottom, #8D1EC3 15%, #1904e5 100%)",
                 color: "white",
@@ -209,7 +223,7 @@ const Dashboard = () => {
                 minWidth: "130px",
                 background: "#F5F5F5",
                 color: "#4E4E52",
-                marginRight: "15px"
+                marginRight: "15px",
               }}
               bordered={false}
             >
@@ -218,7 +232,15 @@ const Dashboard = () => {
                 <img width={90} src={fair} />
               </div>
               <div>
-                <h3 style={{ fontSize: "25px", fontWeight: "bold", textAlign:"center" }}>2</h3>
+                <h3
+                  style={{
+                    fontSize: "25px",
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  2
+                </h3>
               </div>
             </Card>
             <Card
@@ -226,9 +248,9 @@ const Dashboard = () => {
                 minWidth: "150px",
                 background: "#F5F5F5",
                 color: "#4E4E52",
-                marginRight: "15px", 
-                transform:"scale(1.1)",
-                boxShadow:"rgb(100 100 111 / 10%) 1px 3px 29px 0px"
+                marginRight: "15px",
+                transform: "scale(1.1)",
+                boxShadow: "rgb(100 100 111 / 10%) 1px 3px 29px 0px",
               }}
               bordered={false}
             >
@@ -237,7 +259,15 @@ const Dashboard = () => {
                 <img width={90} src={promoted} />
               </div>
               <div>
-                <h3 style={{ fontSize: "25px", fontWeight: "bold", textAlign:"center" }}>6</h3>
+                <h3
+                  style={{
+                    fontSize: "25px",
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  6
+                </h3>
               </div>
             </Card>
             <Card
@@ -254,7 +284,15 @@ const Dashboard = () => {
                 <img width={90} src={passive} />
               </div>
               <div>
-                <h3 style={{ fontSize: "25px", fontWeight: "bold", textAlign:"center" }}>2</h3>
+                <h3
+                  style={{
+                    fontSize: "25px",
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  2
+                </h3>
               </div>
             </Card>
           </div>

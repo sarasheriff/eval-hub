@@ -75,3 +75,10 @@ code {
 :where(.css-dev-only-do-not-override-2q8sxy).ant-card:not(.ant-card-bordered) {
   height: 100%;
 }
+:where(.css-dev-only-do-not-override-2q8sxy).ant-btn-primary:disabled {
+  color: white;
+}
+.ant-breadcrumb-link {
+  color:#4E4E52 ;
+  font-family: 'Poppins';
+}

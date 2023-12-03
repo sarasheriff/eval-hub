@@ -1,14 +1,15 @@
 import React from 'react';
 import { Button, Form, Input } from 'antd';
-import logo from "../../images/evalbot-2.PNG"
+import logo from "../../images/evalu-logo-1.jpg"
 
-const onFinish = (values) => {
-  console.log('Success:', values);
-};
-const onFinishFailed = (errorInfo) => {
-  console.log('Failed:', errorInfo);
-};
-const Login = () => (
+const Login = () => {
+  const onFinish = (values) => {
+    console.log(values)
+  };
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
+  return (
   <div style={{backgroundColor: "#F4FCFC", display:"flex", alignItems:"center", height: "100vh"}}>
     <div style={{margin:"auto"}}>
       <img src={logo} alt="" width="300px"/>
@@ -64,11 +65,11 @@ const Login = () => (
           }}
         >
           <Button type="primary" htmlType="submit" style={{backgroundColor:"#38507F", width:"100%"}}>
-            Submit
+          <a href="/eval-hub/dashboard">Submit</a>
           </Button>
         </Form.Item>
       </Form>
     </div>
   </div>
-);
+)};
 export default Login;

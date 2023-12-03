@@ -7,7 +7,7 @@ import instagram from "../../images/instagram-logo.svg";
 import youtube from "../../images/youtube-logo.svg";
 import twitter from "../../images/twitter-logo.svg";
 import hamburger from "../../images/hamburger-icon.svg";
-import logo from "../../images/logo-3.PNG.jpg";
+import logo from "../../images/evalu-logo-3-1.jpg";
 
 const LandingPage = () => {
   return (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Avatar, Card, Col, Row, Tag, Spin } from "antd";
-import { TeamOutlined, UserOutlined } from "@ant-design/icons";
+import { Avatar, Card, Col, Row, Tag, Breadcrumb } from "antd";
+import { TeamOutlined, UserOutlined, HomeOutlined } from "@ant-design/icons";
 import "./hierarcy.css";
 import { getHierarchyData } from "../../api";
 
@@ -57,89 +57,89 @@ const HierarchyTeam = () => {
   }, []);
 
   const teamHierarchyRecurse = (teamHierarchy) => {
-    console.log(!teamHierarchy.employees?.length)
     if (!!teamHierarchy.employees?.length) {
       return (
-        <Spin tip="loading" spinning={!teamHierarchy.employees?.length}>
-          <ul>
-            {teamHierarchy.employees.map((user) => {
-              console.log(user, "usersss");
-              return (
-                <li key={user?.userId}>
-                  <a className="hierarchy-children">
-                    {(user?.id && user?.level) || user?.name ? (
-                      <Card
-                        size="small"
-                        className={`parent ${
-                          !!user.employees?.length ? "point-bottom" : ""
-                        } point-top hierarchy-card ${
-                          user?.level && user?.name ? "emp-bg" : "team-bg"
-                        }`}
-                        style={{ minWidth: 200, height: 160 }}
-                      >
-                        <Row style={{ height: "100%", display: "flex" }}>
+        <ul>
+          {teamHierarchy.employees.map((user) => {
+            return (
+              <li key={user?.userId}>
+                <a className="hierarchy-children">
+                  {(user?.id && user?.level) || user?.name ? (
+                    <Card
+                      size="small"
+                      className={`parent ${
+                        !!user.employees?.length ? "point-bottom" : ""
+                      } point-top hierarchy-card ${
+                        user?.level && user?.name ? "emp-bg" : "team-bg"
+                      }`}
+                      style={{
+                        minWidth: 200,
+                        height: 160,
+                        fontFamily: "Poppins",
+                      }}
+                    >
+                      <Row style={{ height: "100%", display: "flex" }}>
+                        <Col
+                          xs={{ span: 24 }}
+                          sm={{ span: 24 }}
+                          md={{ span: 24 }}
+                          lg={{ span: 24 }}
+                          xl={{ span: 24 }}
+                          xxl={{ span: 24 }}
+                          // style={{ display: "flex" }}
+                          style={{ textAlign: "center", margin: "auto" }}
+                        >
                           <Col
-                            xs={{ span: 24 }}
-                            sm={{ span: 24 }}
-                            md={{ span: 24 }}
-                            lg={{ span: 24 }}
-                            xl={{ span: 24 }}
-                            xxl={{ span: 24 }}
-                            // style={{ display: "flex" }}
-                            style={{ textAlign: "center", margin: "auto" }}
+                            span={24}
+                            // xs={{ span: 24 }}
+                            // sm={{ span: 24 }}
+                            // md={{ span: 5 }}
+                            // lg={{ span: 5 }}
+                            // xl={{ span: 5 }}
+                            // xxl={{ span: 5 }}
                           >
-                            <Col
-                              span={24}
-                              // xs={{ span: 24 }}
-                              // sm={{ span: 24 }}
-                              // md={{ span: 5 }}
-                              // lg={{ span: 5 }}
-                              // xl={{ span: 5 }}
-                              // xxl={{ span: 5 }}
-                            >
-                              {user?.userProfilePicture ? (
-                                <Avatar
-                                  className="avatar-image bg-light-gray"
-                                  size={40}
-                                  src={user.userProfilePicture}
-                                />
-                              ) : (
-                                <Avatar className="avatar-image" size={40}>
-                                  <h1 className="avatar-letter">
-                                    {user.name && user.level ? (
-                                      <UserOutlined
-                                        style={{ fontSize: "20px" }}
-                                      />
-                                    ) : (
-                                      <TeamOutlined
-                                        style={{ fontSize: "20px" }}
-                                      />
-                                    )}
-                                  </h1>
-                                </Avatar>
-                              )}
-                            </Col>
-                            <Col span={24}>
-                              <h3>{user.name}</h3>
-                              <span className="position">{user.job_title}</span>
-                            </Col>
+                            {user?.userProfilePicture ? (
+                              <Avatar
+                                className="avatar-image bg-light-gray"
+                                size={40}
+                                src={user.userProfilePicture}
+                              />
+                            ) : (
+                              <Avatar className="avatar-image" size={40}>
+                                <h1 className="avatar-letter">
+                                  {user.name && user.level ? (
+                                    <UserOutlined
+                                      style={{ fontSize: "20px" }}
+                                    />
+                                  ) : (
+                                    <TeamOutlined
+                                      style={{ fontSize: "20px" }}
+                                    />
+                                  )}
+                                </h1>
+                              </Avatar>
+                            )}
                           </Col>
-                        </Row>
-                      </Card>
-                    ) : (
-                      <>
-                        <Tag bordered={false} color={levels[user?.level]}>
-                          {user?.level}
-                        </Tag>
-                      </>
-                    )}
-                  </a>
-                  {teamHierarchyRecurse(user)}
-                </li>
-              );
-            })}
-          </ul>
-        </Spin>
+                          <Col span={24}>
+                            <h3>{user.name}</h3>
+                            <span className="position">{user.job_title}</span>
+                          </Col>
+                        </Col>
+                      </Row>
+                    </Card>
+                  ) : (
+                    <>
+                      <Tag bordered={false} color={levels[user?.level]}>
+                        {user?.level}
+                      </Tag>
+                    </>
+                  )}
+                </a>
+                {teamHierarchyRecurse(user)}
+              </li>
+            );
+          })}
+        </ul>
       );
     } else {
       return;
@@ -147,11 +147,8 @@ const HierarchyTeam = () => {
   };
 
   const renderContent = () => {
-    console.log(employeeHierarcyData, "employeeHierarcyData2");
-    // if (teamHierarchy?.userId)
     return (
       <>
-        {/* <Spin tip="Loading..." spinning={!hierarchyData?.length}> */}
         <div className={`tree zoom-100`}>
           <ul>
             <li>
@@ -160,7 +157,9 @@ const HierarchyTeam = () => {
                 <Card
                   size="small"
                   className={`parent ${
-                    !!employeeHierarcyData.employees?.length ? "point-bottom" : ""
+                    !!employeeHierarcyData.employees?.length
+                      ? "point-bottom"
+                      : ""
                   }`}
                   style={{ width: 326, height: 106, background: "none" }}
                 >
@@ -225,19 +224,27 @@ const HierarchyTeam = () => {
             </li>
           </ul>
         </div>
-        {/* </Spin> */}
       </>
     );
-    // else
-    //   return (
-    //     <EmptyState
-    //       title="Employees hierarchy empty"
-    //       desc="No employees added yet!."
-    //       icon={<TreeIcon width='40' height='40' />}
-    //     />
-    //   );
   };
-  return <>{renderContent()}</>;
+  return (
+    <>
+      <Col span={24}>
+        <Breadcrumb
+          items={[
+            {
+              href: "",
+              title: <HomeOutlined />,
+            },
+            {
+              title: "Organization",
+            },
+          ]}
+        />
+      </Col>
+      {renderContent()}
+    </>
+  );
 };
 
 export default HierarchyTeam;

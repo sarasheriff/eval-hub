@@ -18,7 +18,7 @@ export default function EmployeeCard({ title, data }) {
   return (
     <>
     {data[title.toLowerCase()]?.length ? <Col span={24} style={{ marginBottom: "20px" }}>
-      <Card>
+      <Card style={{fontFamily:"Poppins"}}>
         <h4>{title}</h4>
 
         {data[title.toLowerCase()].map((user, i) => (
@@ -44,7 +44,7 @@ export default function EmployeeCard({ title, data }) {
               </i>
             </div>
             <div>
-              {data[title.toLowerCase()][i].eval_done == "0" ? (
+              {!data[title.toLowerCase()][i].eval_done ? (
                 <Button
                   type="primary"
                   htmlType="submit"

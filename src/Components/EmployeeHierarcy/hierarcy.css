@@ -8,6 +8,12 @@
 
 .tree h3 {
 margin: 0;
+font-family: Poppins !important;
+font-weight: 500;
+}
+
+.tree span {
+font-family: Poppins !important;
 }
 
 .tree ul {
@@ -86,7 +92,7 @@ margin: 0;
 .tree li a:hover .hierarchy-card,
 .tree li a:hover + ul li a .hierarchy-card {
   background: #f5f5f5;
-  color: #000;
+  color: #4E4E52 ;
 }
 
 .tree li .hierarchy-card:hover,
@@ -130,7 +136,7 @@ margin: 0;
 }
 .avatar-letter {
   color: #799ca1;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
 }
 
@@ -139,7 +145,7 @@ margin: 0;
   h3 {
     font-size: 15px;
     color: #39485b;
-    font-weight: 600;
+    font-weight: 500;
     margin: 0 !important;
   }
   span {
@@ -187,7 +193,7 @@ margin: 0;
   background: #e4ebec;
   color: #799ca1;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .zoomValues {

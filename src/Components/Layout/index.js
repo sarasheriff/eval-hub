@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Layout, Avatar, Menu, Tooltip } from "antd";
-import logo from "../../images/logo-3.PNG.jpg";
+import logo from "../../images/evalu-logo-3-1.jpg";
 import userImg from "../../images/4952209_39546.jpg";
 import { TeamOutlined } from "@ant-design/icons";
 import {
@@ -104,7 +104,7 @@ function PageLayout({ children }) {
           <div>
             <Menu
               theme="light"
-              style={{ background: "transparent", paddingTop: "30px" }}
+              style={{ background: "transparent", paddingTop: "30px", fontFamily:"Poppins", fontWeight:"500", color:"#8E8E93" }}
               mode="inline"
               defaultSelectedKeys={["1"]}
               items={[
@@ -144,7 +144,8 @@ function PageLayout({ children }) {
         </Sider>
         <Content
           style={{
-            padding: "30px 50px",
+            padding: "0px 20px",
+            fontFamily:"Poppins"
           }}
         >
           <Row>{children}</Row>

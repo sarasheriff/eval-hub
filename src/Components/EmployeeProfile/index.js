@@ -1,12 +1,12 @@
-import React, {useState, useEffect} from "react";
-import { Card, Col, Avatar } from "antd";
-import { PhoneFilled, MailFilled } from "@ant-design/icons";
+import React, { useState, useEffect } from "react";
+import { Card, Col, Avatar, Button, Breadcrumb } from "antd";
+import { PhoneFilled, MailFilled, CloudDownloadOutlined, UserOutlined } from "@ant-design/icons";
 import userImg from "../../images/4952209_39546.jpg";
 import "./EmployeeProfile.css";
 import EmployeeCard from "./EmployeeCard";
-import { getEmployeesToEvaluate } from '../../api';
+import { getEmployeesToEvaluate, getReport } from "../../api";
 
-const EmployeeProfile = () => { 
+const EmployeeProfile = () => {
   const [employeeData, setEmployeeData] = useState({});
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const EmployeeProfile = () => {
       const modifiedData = modifyEmployeeData(responseData);
       setEmployeeData(modifiedData);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     }
   };
 
@@ -37,92 +37,141 @@ const EmployeeProfile = () => {
     return data;
   };
 
+  const handleDownload = async () => {
+    try {
+      await getReport();
+    } catch (error) {
+      console.error('Error in downloadPDF function:', error);
+    }
+  };
+
   return (
-  <>
-    <Col span={24} style={{ marginBottom: "20px" }}>
-      <Card>
-        <div style={{ display: "flex" }}>
-          <Avatar
-            className="avatar-image bg-light-gray"
-            size={70}
-            src={userImg}
-          />
-          <div style={{ margin: "0 20px" }}>
-            <div style={{ marginBottom: "10px" }}>
-              <h3 style={{ marginBottom: "0", marginTop: "0" }}>
-                {employeeData.employeeName}
-              </h3>
-              <i style={{ fontSize: "12px", color: "#a4a2a2" }}>
-                UI/UX Designer
-              </i>
-            </div>
-            <div style={{ marginBottom: "10px" }}>
-              <PhoneFilled className="emp-profile-icons" />
-              <span>+2099999</span>
-            </div>
-            <div>
-              <MailFilled className="emp-profile-icons" />
-              <span>emp@gmail.com</span>
+    <>
+    <Col span={24}>
+        <Breadcrumb
+          items={[
+            {
+              title: (
+                <>
+                  <UserOutlined />
+                  <span>My Profile</span>
+                </>
+              ),
+            },
+          ]}
+        />
+      </Col>
+      <Col span={24} style={{ marginBottom: "20px", fontFamily:"Poppins" }}>
+        <Card>
+          <div style={{ display: "flex" }}>
+            <Avatar
+              className="avatar-image bg-light-gray"
+              size={70}
+              src={userImg}
+            />
+            <div style={{ margin: "0 20px" }}>
+              <div style={{ marginBottom: "10px" }}>
+                <h3 style={{ marginBottom: "0", marginTop: "0" }}>
+                  {employeeData.employeeName}
+                </h3>
+                <i style={{ fontSize: "12px", color: "#a4a2a2" }}>
+                  UI/UX Designer
+                </i>
+              </div>
+              <div style={{ marginBottom: "10px" }}>
+                <PhoneFilled className="emp-profile-icons" />
+                <span>+2099999</span>
+              </div>
+              <div>
+                <MailFilled className="emp-profile-icons" />
+                <span>emp@gmail.com</span>
+              </div>
             </div>
           </div>
-        </div>
-      </Card>
-    </Col>
-    <Col span={6} style={{ paddingRight: "8px", marginBottom: "20px" }}>
-      <Card
-        style={{ backgroundColor: "#4E4E52", color: "white" }}
-        bordered={false}
+        </Card>
+      </Col>
+      <Col span={6} style={{ paddingRight: "8px", marginBottom: "20px" }}>
+        <Card
+          style={{ backgroundColor: "#4E4E52", color: "white" }}
+          bordered={false}
+        >
+          <span>Due Task</span>
+          <div style={{ fontSize: "25px", fontWeight: "bold" }}>2</div>
+        </Card>
+      </Col>
+      <Col
+        span={6}
+        style={{
+          paddingLeft: "8px",
+          paddingRight: "8px",
+          marginBottom: "20px",
+        }}
       >
-        <spa>Due Task</spa>
-        <div style={{ fontSize: "25px", fontWeight: "bold" }}>2</div>
-      </Card>
-    </Col>
-    <Col
-      span={6}
-      style={{ paddingLeft: "8px", paddingRight: "8px", marginBottom: "20px" }}
-    >
-      <Card
-        style={{ backgroundColor: "#5493E4", color: "white" }}
-        bordered={false}
+        <Card
+          style={{ backgroundColor: "#5493E4", color: "white" }}
+          bordered={false}
+        >
+          <span>Progress Task</span>
+          <div style={{ fontSize: "25px", fontWeight: "bold" }}>4</div>
+        </Card>
+      </Col>
+      <Col
+        span={6}
+        style={{
+          paddingLeft: "8px",
+          paddingRight: "8px",
+          marginBottom: "20px",
+        }}
       >
-        <spa>Progress Task</spa>
-        <div style={{ fontSize: "25px", fontWeight: "bold" }}>4</div>
-      </Card>
-    </Col>
-    <Col
-      span={6}
-      style={{ paddingLeft: "8px", paddingRight: "8px", marginBottom: "20px" }}
-    >
-      <Card
-        style={{ backgroundColor: "#9ACE62 ", color: "white" }}
-        bordered={false}
+        <Card
+          style={{ backgroundColor: "#9ACE62 ", color: "white" }}
+          bordered={false}
+        >
+          <span>Completed Task</span>
+          <div style={{ fontSize: "25px", fontWeight: "bold" }}>2</div>
+        </Card>
+      </Col>
+      <Col
+        span={6}
+        style={{
+          paddingLeft: "8px",
+          paddingRight: "8px",
+          marginBottom: "20px",
+        }}
       >
-        <span>Completed Task</span>
-        <div style={{ fontSize: "25px", fontWeight: "bold" }}>2</div>
-      </Card>
-    </Col>
-    <Col
-      span={6}
-      style={{ paddingLeft: "8px", paddingRight: "8px", marginBottom: "20px" }}
-    >
-      <Card
-        style={{ backgroundColor: "#aacad8 ", color: "white" }}
-        bordered={false}
-      >
-        <spa>Report</spa>
-        <div style={{ fontSize: "25px", fontWeight: "bold" }}> ?! </div>
-      </Card>
-    </Col>
+        <Card
+          style={{ backgroundColor: "#aacad8 ", color: "white" }}
+          bordered={false}
+        >
+          <span>Report</span>
+          <div style={{ fontSize: "25px", fontWeight: "bold" }}>
+            <Button
+              style={{
+                backgroundColor: "#E0E8F3",
+                color: "#1553DD",
+                border:0,
+                fontFamily:"Poppins",
+                boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
+              }}
+              onClick={handleDownload}
+            >
+              <CloudDownloadOutlined />
+              Download
+            </Button>
+          </div>
+        </Card>
+      </Col>
 
-    <Col span={24} style={{ marginBottom: "20px" }}>
-      <h4 style={{ color: "#4E4E52", fontSize: "20px" }}>
-        Start evaluate your team 
-      </h4>
-    </Col>
+      <Col span={24} style={{ marginBottom: "20px" }}>
+        <h4 style={{ color: "#4E4E52", fontSize: "20px" }}>
+          Start evaluate your team
+        </h4>
+      </Col>
 
-    <EmployeeCard title={'Mentees'} data={employeeData} />
-    <EmployeeCard title={'Colleagues'} data={employeeData} />
-    <EmployeeCard title={'Mentors'} data={employeeData} />
-  </>
-)};
+      <EmployeeCard title={"Mentees"} data={employeeData} />
+      <EmployeeCard title={"Colleagues"} data={employeeData} />
+      <EmployeeCard title={"Mentors"} data={employeeData} />
+    </>
+  );
+};
 export default EmployeeProfile;

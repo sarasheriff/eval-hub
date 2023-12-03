@@ -1,4 +1,8 @@
-import { HomeOutlined, UserOutlined, CaretRightOutlined } from "@ant-design/icons";
+import {
+  HomeOutlined,
+  UserOutlined,
+  CaretRightOutlined,
+} from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 import {
   Breadcrumb,
@@ -9,6 +13,7 @@ import {
   Collapse,
   Divider,
   Layout,
+  Empty,
   Table,
   Checkbox,
   Input,
@@ -16,7 +21,14 @@ import {
   Button,
 } from "antd";
 import quote from "../../images/left-quote-svgrepo-com.svg";
-import { postFeedback, getEvaluation, getFeedbacks, getReport, validateFeedbacks, evaluateScore } from '../../api';
+import {
+  postFeedback,
+  getEvaluation,
+  getFeedbacks,
+  getReport,
+  validateFeedbacks,
+  evaluateScore,
+} from "../../api";
 const { TextArea } = Input;
 
 const columns = [
@@ -51,7 +63,7 @@ const transformResponseData = (responseData) => {
     const { kpi, question, is_sufficient, score } = evaluation;
 
     // Find the existing KPI group or create a new one
-    const existingGroup = result.find(group => group.kpi === kpi);
+    const existingGroup = result.find((group) => group.kpi === kpi);
     if (existingGroup) {
       // Add the question to the existing group
       existingGroup.questions.push({ question, is_sufficient, score });
@@ -70,27 +82,28 @@ const transformResponseData = (responseData) => {
     quetions: (
       <ul>
         {group.questions.map((question, questionIndex) => (
-          <li key={questionIndex.toString()}>
-            {question.question}
-          </li>
+          <li key={questionIndex.toString()}>{question.question}</li>
         ))}
       </ul>
     ),
     covered: (
-      <ul style={{ listStyle: 'none', padding: 0 }}>
+      <ul style={{ listStyle: "none", padding: 0 }}>
         {group.questions.map((question, questionIndex) => (
           <li key={questionIndex.toString()}>
-            <Checkbox checked={question.is_sufficient === "true" || question.is_sufficient === "True"} />
+            <Checkbox
+              checked={
+                question.is_sufficient === "true" ||
+                question.is_sufficient === "True"
+              }
+            />
           </li>
         ))}
       </ul>
     ),
     rate: (
-      <ul style={{ listStyle: 'none', padding: 0 }}>
+      <ul style={{ listStyle: "none", padding: 0 }}>
         {group.questions.map((question, questionIndex) => (
-          <li key={questionIndex.toString()}>
-            {question.score}
-          </li>
+          <li key={questionIndex.toString()}>{question.score}</li>
         ))}
       </ul>
     ),
@@ -101,7 +114,7 @@ const transformResponseData = (responseData) => {
 
 const Feedback = () => {
   const [data, setData] = useState([]);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const [feedbacks, setFeedbacks] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
 
@@ -123,14 +136,14 @@ const Feedback = () => {
       // Handle error, if needed
       console.error(error);
     }
-  }
+  };
 
   const fetchDataFromApi = async () => {
     try {
       const responseData = await getEvaluation();
       setData(transformResponseData(responseData));
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     }
   };
 
@@ -139,7 +152,7 @@ const Feedback = () => {
       const responseData = await getFeedbacks();
       setFeedbacks(responseData.feedbacks);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     }
   };
 
@@ -152,18 +165,18 @@ const Feedback = () => {
     try {
       await getReport();
     } catch (error) {
-      console.error('Error in downloadPDF function:', error);
+      console.error("Error in downloadPDF function:", error);
     }
   };
 
   const validateUsingAI = async () => {
     try {
       const responseData = await validateFeedbacks();
-      const filteredData = responseData.filter(item => !item.is_sufficient);
+      const filteredData = responseData.filter((item) => !item.is_sufficient);
       setSuggestions(filteredData);
       await fetchDataFromApi();
     } catch (error) {
-      console.error('Error in downloadPDF function:', error);
+      console.error("Error in downloadPDF function:", error);
     }
   };
 
@@ -172,7 +185,7 @@ const Feedback = () => {
       const responseData = await evaluateScore();
       setData(transformResponseData(responseData));
     } catch (error) {
-      console.error('Error in downloadPDF function:', error);
+      console.error("Error in downloadPDF function:", error);
     }
   };
 
@@ -184,8 +197,8 @@ const Feedback = () => {
         <>
           <Table columns={columns} dataSource={data} pagination={false} />
           <Divider orientation="left" style={{ color: "#38507f" }}>
-            Post a review about this employee regarding what you liked or disliked
-            in him/her
+            Post a review about this employee regarding what you liked or
+            disliked in him/her
           </Divider>
           <TextArea
             showCount
@@ -205,7 +218,11 @@ const Feedback = () => {
             <Button
               type="primary"
               htmlType="submit"
-              style={{ backgroundColor: "#38507F", width: "20%", height: "38px" }}
+              style={{
+                backgroundColor: "#38507F",
+                width: "20%",
+                height: "38px",
+              }}
               onClick={handleSubmit}
             >
               Submit
@@ -220,20 +237,20 @@ const Feedback = () => {
       children: (
         <Row gutter={16} className="quote-reviews">
           {feedbacks.map((feedback, index) => (
-          <Col key={index} span={24} style={{ marginBottom: 16 }}>
-            <Card bordered={false}>
-              <img src={quote} width={35} />
-              <p>{feedback}</p>
-            </Card>
-          </Col>
-        ))}
+            <Col key={index} span={24} style={{ marginBottom: 16 }}>
+              <Card bordered={false}>
+                <img src={quote} width={35} />
+                <p>{feedback}</p>
+              </Card>
+            </Col>
+          ))}
         </Row>
       ),
     },
     {
       key: "3",
       label: "Suggestions",
-      children: (
+      children: !!suggestions.length ? (
         <Space direction="vertical">
           {suggestions.map((suggest, index) => (
             <Collapse
@@ -257,8 +274,17 @@ const Feedback = () => {
             />
           ))}
         </Space>
+      ) : (
+        <Empty
+          image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+          imageStyle={{
+            height: 150,
+            display:"flex", justifyContent:"center"
+          }}
+          description={<span style={{color:"#4E4E52", fontFamily:"Poppins"}}>No suggestions yet!</span>}
+        ></Empty>
       ),
-    }
+    },
   ];
 
   return (
@@ -266,10 +292,6 @@ const Feedback = () => {
       <Col span={12}>
         <Breadcrumb
           items={[
-            {
-              href: "",
-              title: <HomeOutlined />,
-            },
             {
               href: "",
               title: (
@@ -291,30 +313,23 @@ const Feedback = () => {
       >
         <Button
           type="primary"
-          style={{ backgroundColor: "#38507F", height: "38px" }}
+          style={{ backgroundColor: "#38507F", height: "38px", marginRight:"10px", boxShadow:"none" }}
           onClick={validateUsingAI}
         >
           Validate using AI
         </Button>
         <Button
           type="primary"
-          style={{ backgroundColor: "#38507F", height: "38px" }}
+          style={{ backgroundColor: "#9ACE62", height: "38px",  boxShadow:"none" }}
           onClick={scoreUsingAI}
         >
           Score
-        </Button>
-        <Button
-          type="primary"
-          style={{ backgroundColor: "#38507F", height: "38px" }}
-          onClick={handleDownload}
-        >
-          Report
         </Button>
       </Col>
       <Col span={24}>
         <Tabs onChange={onChange} type="card" items={items} />
       </Col>
     </>
-  )
+  );
 };
 export default Feedback;
