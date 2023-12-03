@@ -10,7 +10,7 @@ import {
   BellFilled,
 } from "@ant-design/icons";
 import "../../App.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 const { Header, Content, Sider } = Layout;
 
 function PageLayout({ children }) {
@@ -20,6 +20,7 @@ function PageLayout({ children }) {
     lineHeight: "120px",
     backgroundColor: "rgb(255 255 255 / 47%)",
   };
+  const location = useLocation();
 
   return (
     <Layout>
@@ -107,6 +108,7 @@ function PageLayout({ children }) {
               style={{ background: "transparent", paddingTop: "30px", fontFamily:"Poppins", fontWeight:"500", color:"#8E8E93" }}
               mode="inline"
               defaultSelectedKeys={["1"]}
+              selectedKeys={[location.pathname.includes('dashboard')? "1" : location.pathname.includes('organization') ? "2" : "3"]}
               items={[
                 {
                   key: "1",
