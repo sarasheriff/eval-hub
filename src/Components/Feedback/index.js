@@ -130,6 +130,7 @@ const Feedback = () => {
       const evaluatorId = 1;
       // Make the API call using the postFeedback function
       const response = await postFeedback(evaluatorId, inputValue);
+      await getFeedbacksFromApi()
       // Handle success, if needed
       console.log(response);
     } catch (error) {
@@ -202,7 +203,7 @@ const Feedback = () => {
           </Divider>
           <TextArea
             showCount
-            maxLength={100}
+            maxLength={500}
             onChange={onChange}
             placeholder="Your thoughts 💭..."
             style={{ height: 200, resize: "none" }}
