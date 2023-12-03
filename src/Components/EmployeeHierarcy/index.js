@@ -57,9 +57,10 @@ const HierarchyTeam = () => {
   }, []);
 
   const teamHierarchyRecurse = (teamHierarchy) => {
+    console.log(!teamHierarchy.employees?.length)
     if (!!teamHierarchy.employees?.length) {
       return (
-        <Spin spinning={!teamHierarchy.employees?.length}>
+        <Spin tip="loading" spinning={!teamHierarchy.employees?.length}>
           <ul>
             {teamHierarchy.employees.map((user) => {
               console.log(user, "usersss");
