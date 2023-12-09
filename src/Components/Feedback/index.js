@@ -241,7 +241,7 @@ const Feedback = () => {
             <Col key={index} span={24} style={{ marginBottom: 16 }}>
               <Card bordered={false}>
                 <img src={quote} width={35} />
-                <p>{feedback}</p>
+                <p>{feedback.text}</p>
               </Card>
             </Col>
           ))}

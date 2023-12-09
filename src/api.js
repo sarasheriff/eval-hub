@@ -26,7 +26,7 @@ export const postFeedback = async (evaluatorId, feedback) => {
 
 export const getEvaluation = async () => {
   try {
-    const response = await api.get('/evaluators/1/employees/2/evaluations');
+    const response = await api.get('/evaluations/1/employees/2');
     return response.data;
   } catch (error) {
     console.error('Error details:', error); // Log the full error object
@@ -84,7 +84,7 @@ export const getHierarchyData = async () => {
 
 export const validateFeedbacks = async (evaluatorId, feedback) => {
   try {
-    const response = await api.post('/validation/feedbacks/evaluators/1/employees/2');
+    const response = await api.post('/feedbacks/evaluators/1/employees/2/validate');
     return response.data;
   } catch (error) {
     console.error('Error details:', error); // Log the full error object
@@ -94,7 +94,7 @@ export const validateFeedbacks = async (evaluatorId, feedback) => {
 
 export const evaluateScore = async (evaluatorId, feedback) => {
   try {
-    const response = await api.post('/evaluators/1/employees/2/rates');
+    const response = await api.post('/evaluations/1/employees/2/score');
     return response.data;
   } catch (error) {
     console.error('Error details:', error); // Log the full error object
