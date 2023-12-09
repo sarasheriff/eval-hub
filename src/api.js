@@ -13,7 +13,7 @@ const api = axios.create({
 
 export const postFeedback = async (evaluatorId, feedback) => {
   try {
-    const response = await api.post('/employee/2/feedback', {
+    const response = await api.post('/feedbacks/employees/2', {
         evaluator_id: evaluatorId,
         feedback: feedback,
       });
