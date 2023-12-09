@@ -164,7 +164,7 @@ const EmployeeProfile = () => {
 
       <Col span={24} style={{ marginBottom: "20px" }}>
         <h4 style={{ color: "#4E4E52", fontSize: "20px" }}>
-          Start evaluate your team
+        Start evaluating your team.
         </h4>
       </Col>
 
